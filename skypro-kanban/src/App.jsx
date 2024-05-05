@@ -488,6 +488,7 @@ function App() {
 								</div>
 							</div>
 						</div>						
+            
 						<div className="main__column">
 							<div className="column__title">
 								<p>Нужно сделать</p>
