@@ -10,7 +10,7 @@ export const statusList = [
     "Готово",
 ]
 
-const Main = () => {
+const Main = ({cardList}) => {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {setTimeout(() => {
         setIsLoading(false);

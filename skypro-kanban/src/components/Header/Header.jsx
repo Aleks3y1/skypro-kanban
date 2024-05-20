@@ -3,7 +3,7 @@ import {useState} from "react";
 const Header = ({ setCards, cards }) => {
     const [state, setState] = useState(false);
 
-    const handleStateChange = () => {
+    const handleOpenUser = () => {
         setState((prevState) => !prevState);
     }
 
@@ -38,7 +38,7 @@ const Header = ({ setCards, cards }) => {
                         <button className="header__btn-main-new _hover01" onClick={onAddCard}>
                             Создать новую задачу
                         </button>
-                        <div className="header__user _hover02" onClick={handleStateChange}>
+                        <div className="header__user _hover02" onClick={handleOpenUser}>
                             Ivan Ivanov
                         </div>
                         {state && (
