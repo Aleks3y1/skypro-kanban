@@ -1,3 +1,5 @@
+import {CardContentStyles, CardGroupStyles, CardItemStyles, CardStyles, TopicStyles} from "./Card.styled.js";
+
 const Card = ({theme, title, date}) => {
 
     const colorsArr = {
@@ -9,12 +11,12 @@ const Card = ({theme, title, date}) => {
     const color = colorsArr[theme] || '';
 
     return (
-        <div className="cards__item">
+        <CardItemStyles>
             <div className="cards__card card">
-                <div className="card__group">
-                    <div className={"card__theme " + color}>
-                        <p className={color}>{theme}</p>
-                    </div>
+                <CardGroupStyles>
+                    <CardStyles $color={color}>
+                        <TopicStyles $color={color}>{theme}</TopicStyles>
+                    </CardStyles>
                     <a href="#popBrowse" target="_self">
                         <div className="card__btn">
                             <div></div>
@@ -22,8 +24,8 @@ const Card = ({theme, title, date}) => {
                             <div></div>
                         </div>
                     </a>
-                </div>
-                <div className="card__content">
+                </CardGroupStyles>
+                <CardContentStyles>
                     <a href="" target="_blank">
                         <h3 className="card__title">{title}</h3>
                     </a>
@@ -58,9 +60,9 @@ const Card = ({theme, title, date}) => {
                         </svg>
                         <p>{date}</p>
                     </div>
-                </div>
+                </CardContentStyles>
             </div>
-        </div>
+        </CardItemStyles>
     );
 };
 
