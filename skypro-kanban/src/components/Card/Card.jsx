@@ -1,4 +1,13 @@
-import {CardContentStyles, CardGroupStyles, CardItemStyles, CardStyles, TopicStyles} from "./Card.styled.js";
+import {
+    CardButtonDiv,
+    CardButtonStyles,
+    CardContentStyles, CardDate, CardDateP,
+    CardGroupStyles,
+    CardItemStyles,
+    CardsCardStyles,
+    CardStyles, CardTitleStyles,
+    TopicStyles
+} from "./Card.styled.js";
 
 const Card = ({theme, title, date}) => {
 
@@ -12,24 +21,24 @@ const Card = ({theme, title, date}) => {
 
     return (
         <CardItemStyles>
-            <div className="cards__card card">
+            <CardsCardStyles>
                 <CardGroupStyles>
                     <CardStyles $color={color}>
                         <TopicStyles $color={color}>{theme}</TopicStyles>
                     </CardStyles>
                     <a href="#popBrowse" target="_self">
-                        <div className="card__btn">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
+                        <CardButtonStyles>
+                            <CardButtonDiv></CardButtonDiv>
+                            <CardButtonDiv></CardButtonDiv>
+                            <CardButtonDiv></CardButtonDiv>
+                        </CardButtonStyles>
                     </a>
                 </CardGroupStyles>
                 <CardContentStyles>
                     <a href="" target="_blank">
-                        <h3 className="card__title">{title}</h3>
+                        <CardTitleStyles>{title}</CardTitleStyles>
                     </a>
-                    <div className="card__date">
+                    <CardDate>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="13"
@@ -58,10 +67,10 @@ const Card = ({theme, title, date}) => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p>{date}</p>
-                    </div>
+                        <CardDateP>{date}</CardDateP>
+                    </CardDate>
                 </CardContentStyles>
-            </div>
+            </CardsCardStyles>
         </CardItemStyles>
     );
 };
