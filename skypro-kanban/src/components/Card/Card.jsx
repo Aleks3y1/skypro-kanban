@@ -1,3 +1,14 @@
+import {
+    CardButtonDiv,
+    CardButtonStyles,
+    CardContentStyles, CardDate, CardDateP,
+    CardGroupStyles,
+    CardItemStyles,
+    CardsCardStyles,
+    CardStyles, CardTitleStyles,
+    TopicStyles
+} from "./Card.styled.js";
+
 const Card = ({theme, title, date}) => {
 
     const colorsArr = {
@@ -9,25 +20,25 @@ const Card = ({theme, title, date}) => {
     const color = colorsArr[theme] || '';
 
     return (
-        <div className="cards__item">
-            <div className="cards__card card">
-                <div className="card__group">
-                    <div className={"card__theme " + color}>
-                        <p className={color}>{theme}</p>
-                    </div>
+        <CardItemStyles>
+            <CardsCardStyles>
+                <CardGroupStyles>
+                    <CardStyles $color={color}>
+                        <TopicStyles $color={color}>{theme}</TopicStyles>
+                    </CardStyles>
                     <a href="#popBrowse" target="_self">
-                        <div className="card__btn">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
+                        <CardButtonStyles>
+                            <CardButtonDiv></CardButtonDiv>
+                            <CardButtonDiv></CardButtonDiv>
+                            <CardButtonDiv></CardButtonDiv>
+                        </CardButtonStyles>
                     </a>
-                </div>
-                <div className="card__content">
+                </CardGroupStyles>
+                <CardContentStyles>
                     <a href="" target="_blank">
-                        <h3 className="card__title">{title}</h3>
+                        <CardTitleStyles>{title}</CardTitleStyles>
                     </a>
-                    <div className="card__date">
+                    <CardDate>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="13"
@@ -56,11 +67,11 @@ const Card = ({theme, title, date}) => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p>{date}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <CardDateP>{date}</CardDateP>
+                    </CardDate>
+                </CardContentStyles>
+            </CardsCardStyles>
+        </CardItemStyles>
     );
 };
 
