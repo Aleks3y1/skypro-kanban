@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {darkTheme, lightTheme} from "../theme.js";
+import {darkTheme, lightTheme} from "../../theme.js";
 
 export const Wrapper = styled.div`
     max-width: 100%;

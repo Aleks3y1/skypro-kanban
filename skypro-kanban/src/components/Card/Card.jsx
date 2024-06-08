@@ -8,8 +8,10 @@ import {
     CardStyles, CardTitleStyles,
     TopicStyles
 } from "./Card.styled.js";
+import {useParams, Link} from "react-router-dom";
 
-const Card = ({theme, title, date}) => {
+
+const Card = ({theme, title, date, id}) => {
 
     const colorsArr = {
         "Web Design": "_orange",
@@ -26,13 +28,13 @@ const Card = ({theme, title, date}) => {
                     <CardStyles $color={color}>
                         <TopicStyles $color={color}>{theme}</TopicStyles>
                     </CardStyles>
-                    <a href="#popBrowse" target="_self">
+                    <Link to={`/card/${id}`}>
                         <CardButtonStyles>
                             <CardButtonDiv></CardButtonDiv>
                             <CardButtonDiv></CardButtonDiv>
                             <CardButtonDiv></CardButtonDiv>
                         </CardButtonStyles>
-                    </a>
+                    </Link>
                 </CardGroupStyles>
                 <CardContentStyles>
                     <a href="" target="_blank">

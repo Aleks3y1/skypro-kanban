@@ -9,7 +9,7 @@ const Column = ({ title, cardList }) => {
       </ColumnTitle>
       <ColumnCards>
         {cardList.map(({ id, theme, title, date }) => (
-          <Card key={id} theme={theme} title={title} date={date} />
+          <Card key={id} theme={theme} title={title} date={date} id={id} />
         ))}
       </ColumnCards>
     </MainColumn>

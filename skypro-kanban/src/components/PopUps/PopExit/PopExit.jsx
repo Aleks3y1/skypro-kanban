@@ -1,4 +1,6 @@
-const PopExit = () => {
+import {PopExitGroup, PopExitNoButton, PopExitYesButton} from "./PopExit.styled.js";
+
+const PopExit = ({logout}) => {
     return ( 
         <div className="pop-exit" id="popExit">
 				<div className="pop-exit__container">
@@ -7,10 +9,10 @@ const PopExit = () => {
 							<h2>Выйти из аккаунта?</h2>
 						</div>
 						<form className="pop-exit__form" id="formExit" action="#">
-							<div className="pop-exit__form-group">
-								<button className="pop-exit__exit-yes _hover01" id="exitYes"><a href="../modal/signin.html">Да, выйти</a> </button>
-								<button className="pop-exit__exit-no _hover03" id="exitNo"><a href="/main.html">Нет, остаться</a> </button>
-							</div>
+							<PopExitGroup>
+								<PopExitYesButton onClick={logout}>Да, выйти </PopExitYesButton>
+								<PopExitNoButton to={'/'}>Нет, остаться</PopExitNoButton>
+							</PopExitGroup>
 						</form>
 					</div>
 				</div>

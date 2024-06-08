@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import * as S from "./Main.styled.js";
 import {MainBlock, MainContainer, MainContent} from "./Main.styled.js";
 
+
 export const statusList = [
     "Без статуса",
     "Нужно сделать",

@@ -1,37 +1,56 @@
 import "./App.css";
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import PopBrowse from "./components/PopUps/PopBrowse/PopBrowse";
-import PopExit from "./components/PopUps/PopExit/PopExit";
-import PopNewCard from "./components/PopUps/PopNewCard/PopNewCard";
+import {Route, Routes, useNavigate} from "react-router-dom";
+import MainPage from "./pages/MainPage/MainPage.jsx";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx";
+import Login from "./pages/Login/Login.jsx";
+import Exit from "./pages/Exit/Exit.jsx";
+import Register from "./pages/Register/Register.jsx";
+import CardPage from "./pages/CardPage/CardPage.jsx";
 import {useState} from "react";
-import {cardList} from "./data.js";
-import {darkTheme, lightTheme} from "./theme.js";
-import {ThemeProvider} from "styled-components";
-import {Wrapper} from "./components/App.styled.js";
-import {GlobalStyle} from "./components/Global/Global.styled.js";
+import NotFound from "./pages/NotFound/NotFound.jsx";
+
 
 function App() {
-    const [cards, setCards] = useState(cardList);
-    const [theme, setTheme] = useState("light");
+    //const isAuth = true;
+    const [isAuth, setIsAuth] = useState(false);
 
-    const toggleTheme = () => {
-        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    const appRoutes = {
+        LOGIN: "/login",
+        REGISTER: "/register",
+        MAIN: "/",
+        CARD: "/card/:id",
+        EXIT: "/exit",
+        NOT_FOUND: "*",
+    }
+
+    const navigate = useNavigate();
+
+    const login = (event) => {
+        setIsAuth(true);
+        event.preventDefault();
+        navigate(appRoutes.MAIN);
+    }
+
+    const logout = (event) => {
+        event.preventDefault();
+        setIsAuth(false);
+        navigate(appRoutes.LOGIN);
     }
 
     return (
-        <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-            <GlobalStyle/>
-            <Wrapper>
-                <PopExit/>
-                <PopNewCard/>
-                <PopBrowse/>
-
-                <Header setCards={setCards} cards={cards} toggleTheme={toggleTheme}/>
-                <Main cardList={cards}/>
-            </Wrapper>
-        </ThemeProvider>
-    );
+        <Routes>
+            <Route element={<PrivateRoute isAuth={isAuth}/>}>
+                <Route path={appRoutes.MAIN} element={<MainPage/>}>
+                    <Route path={appRoutes.EXIT} element={<Exit logout={logout}/>}/>
+                    <Route path={appRoutes.CARD} element={<CardPage/>}/>
+                </Route>
+            </Route>
+            <Route path={appRoutes.LOGIN} element={<Login login={login}/>}/>
+            <Route path={appRoutes.REGISTER} element={<Register/>}/>
+            <Route path={appRoutes.NOT_FOUND} element={<NotFound/>}/>
+        </Routes>
+    )
+        ;
 }
 
 export default App;
