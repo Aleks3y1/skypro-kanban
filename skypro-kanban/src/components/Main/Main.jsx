@@ -5,11 +5,11 @@ import {MainBlock, MainContainer, MainContent} from "./Main.styled.js";
 
 
 export const statusList = [
-    "Без статуса",
-    "Нужно сделать",
-    "В работе",
-    "Тестирование",
-    "Готово",
+    { id: 1, title: "Без статуса" },
+    { id: 2, title: "Нужно сделать" },
+    { id: 3, title: "В работе" },
+    { id: 4, title: "Тестирование" },
+    { id: 5, title: "Готово" },
 ]
 
 const Main = ({cardList}) => {
@@ -28,9 +28,9 @@ const Main = ({cardList}) => {
                         {isLoading && ('Данные загружаются...')}
                         {!isLoading && statusList.map((status) => (
                             <Column
-                                key={status}
-                                title={status}
-                                cardList={cardList.filter((card) => card.status === status)}/>
+                                key={status.id}
+                                title={status.title}
+                                cardList={cardList.tasks.filter((card) => card.status === status.title)}/>
                         ))}
                     </MainContent>
                 </MainBlock>

@@ -2,14 +2,24 @@ import Calendar from "../../Calendar/Calendar.jsx";
 import {Link, useParams} from "react-router-dom";
 import {cardList} from "../../../data.js";
 import NotFound from "../../../pages/NotFound/NotFound.jsx";
+import {getTodos} from "../../../api.js";
+import {useEffect, useState} from "react";
 
 const PopBrowse = () => {
     const {id} = useParams();
-    const card = cardList.find(item => item.id == id);
+    const [card, setCard] = useState(null);
+
+    useEffect(() => {
+        // Имитация загрузки данных
+        getTodos().then((todos) => {
+            const foundCard = todos.tasks.find((task) => task._id === id);
+            setCard(foundCard);
+        });
+    }, [id]);
+
     if (!card) {
         return <NotFound/>;
     }
-
 
     return (
         <div className="pop-browse" id="popBrowse">
@@ -19,7 +29,7 @@ const PopBrowse = () => {
                         <div className="pop-browse__top-block">
                             <h3 className="pop-browse__ttl">{card.title}</h3>
                             <div className="categories__theme theme-top _orange _active-category">
-                                <p className="_orange">{card.theme}</p>
+                                <p className="_orange">{card.topic}</p>
                             </div>
                         </div>
                         <div className="pop-browse__status status">
@@ -29,7 +39,7 @@ const PopBrowse = () => {
                                     <p>Без статуса</p>
                                 </div>
                                 <div className="status__theme _gray">
-                                    <p className="_gray">Нужно сделать</p>
+                                    <p className="_gray">{card.status}</p>
                                 </div>
                                 <div className="status__theme _hide">
                                     <p>В работе</p>
@@ -57,7 +67,7 @@ const PopBrowse = () => {
                                         name="text"
                                         id="textArea01"
                                         readOnly
-                                        placeholder="Введите описание задачи..."
+                                        placeholder={card.title}
                                     ></textarea>
                                 </div>
                             </form>

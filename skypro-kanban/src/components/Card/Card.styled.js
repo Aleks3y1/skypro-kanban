@@ -71,7 +71,8 @@ export const CardsCardStyles = styled.div`
     @media screen and (max-width: 1200px) {
         width: 220px;
         height: 130px;
-        background-color: #FFFFFF;
+        background-color: ${props =>
+                props.theme.body ==="#EAEEF6" ? lightTheme.card : darkTheme.card};
         border-radius: 10px;
         display: flex;
         flex-direction: column;

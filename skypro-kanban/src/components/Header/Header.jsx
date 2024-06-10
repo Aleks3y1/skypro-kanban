@@ -1,24 +1,33 @@
 import {useState} from "react";
 import {Container, HeaderBlock, HeaderButton, HeaderNav, HeaderUser} from "./Header.styled.js";
 import * as S from "./Header.styled.js";
+import {postTodos} from "../../api.js";
+import {Link, useNavigate} from "react-router-dom";
+import {appRoutes} from "../../lib/AppRoutes.jsx";
 
-const Header = ({setCards, cards, toggleTheme}) => {
+    const Header = ({setCards, cards, toggleTheme}) => {
     const [state, setState] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = (event) => {
+        event.preventDefault();
+        navigate(appRoutes.EXIT);
+    }
 
     const handleOpenUser = () => {
         setState((prevState) => !prevState);
     }
 
-    const onAddCard = () => {
+    const onAddCard = async () => {
         const newCard = {
-            id: Date.now(),
-            theme: "Web Design",
+            _id: Date.now(),
+            topic: "Web Design",
             title: "Задача 1",
             date: "30.10.23",
             status: "Без статуса",
         };
-        const newCardsList = [...cards, newCard];
-        setCards(newCardsList);
+        const newTodos = await postTodos(cards);
+        setCards(newTodos.data);
     }
 
     return (
@@ -27,12 +36,12 @@ const Header = ({setCards, cards, toggleTheme}) => {
                 <HeaderBlock>
                     <div className="header__logo _show _light">
                         <a href="" target="_self">
-                            <img src="../public/logo.png" alt="logo"/>
+                            <img src="/logo.png" alt="logo"/>
                         </a>
                     </div>
                     <div className="header__logo _dark">
                         <a href="" target="_self">
-                            <img src="../public/logo_dark.png" alt="logo"/>
+                            <img src="/logo_dark.png" alt="logo"/>
                         </a>
                     </div>
                     <HeaderNav>
@@ -51,8 +60,8 @@ const Header = ({setCards, cards, toggleTheme}) => {
                                     <input type="checkbox" className="checkbox" name="checkbox"
                                            onChange={toggleTheme}/>
                                 </div>
-                                <button type="button" className="_hover03">
-                                    <a href="#popExit">Выйти</a>
+                                <button type="button" className="_hover03" onClick={handleLogout}>
+                                    Выйти
                                 </button>
                             </div>
                         )}

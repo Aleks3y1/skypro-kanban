@@ -8,26 +8,16 @@ import Register from "./pages/Register/Register.jsx";
 import CardPage from "./pages/CardPage/CardPage.jsx";
 import {useState} from "react";
 import NotFound from "./pages/NotFound/NotFound.jsx";
-
+import {appRoutes} from "./lib/AppRoutes.jsx";
+import PopNewCard from "./pages/PopNewCard/PopNewCard.jsx";
 
 function App() {
-    //const isAuth = true;
     const [isAuth, setIsAuth] = useState(false);
-
-    const appRoutes = {
-        LOGIN: "/login",
-        REGISTER: "/register",
-        MAIN: "/",
-        CARD: "/card/:id",
-        EXIT: "/exit",
-        NOT_FOUND: "*",
-    }
-
     const navigate = useNavigate();
 
     const login = (event) => {
-        setIsAuth(true);
         event.preventDefault();
+        setIsAuth(true);
         navigate(appRoutes.MAIN);
     }
 
@@ -43,6 +33,7 @@ function App() {
                 <Route path={appRoutes.MAIN} element={<MainPage/>}>
                     <Route path={appRoutes.EXIT} element={<Exit logout={logout}/>}/>
                     <Route path={appRoutes.CARD} element={<CardPage/>}/>
+                    <Route path={appRoutes.NEW_CARD} element={<PopNewCard/>}/>
                 </Route>
             </Route>
             <Route path={appRoutes.LOGIN} element={<Login login={login}/>}/>

@@ -8,8 +8,8 @@ const Column = ({ title, cardList }) => {
         <ColumnContent>{title}</ColumnContent>
       </ColumnTitle>
       <ColumnCards>
-        {cardList.map(({ id, theme, title, date }) => (
-          <Card key={id} theme={theme} title={title} date={date} id={id} />
+        {cardList.map((card) => (
+          <Card key={card._id} topic={card.topic} title={card.title} date={card.date} _id={card._id} />
         ))}
       </ColumnCards>
     </MainColumn>

@@ -1,5 +1,5 @@
 import "../../App.css";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ThemeProvider} from "styled-components";
 import {Wrapper} from "./MainPage.styled.js";
 import {GlobalStyle} from "../../components/Global/Global.styled.js";
@@ -11,6 +11,7 @@ import Main from "../../components/Main/Main.jsx";
 import {darkTheme, lightTheme} from "../../theme.js";
 import {cardList} from "../../data.js";
 import {Outlet} from "react-router-dom";
+import {getTodos} from "../../api.js";
 
 const MainPage = () => {
     const [cards, setCards] = useState(cardList);
@@ -20,15 +21,21 @@ const MainPage = () => {
         setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
     }
 
+    useEffect(() => {
+        getTodos().then((todos) => {
+            setCards(todos);
+        });
+    }, []);
+
     return (
         <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
             <GlobalStyle/>
             <Wrapper>
-                <PopExit/>
-                {/*<PopNewCard/>*/}
+                {/*<PopExit/>*/}
+                <PopNewCard/>
                 {/*<PopBrowse/>*/}
 
-                <Outlet />
+                <Outlet/>
                 <Header setCards={setCards} cards={cards} toggleTheme={toggleTheme}/>
                 <Main cardList={cards}/>
             </Wrapper>

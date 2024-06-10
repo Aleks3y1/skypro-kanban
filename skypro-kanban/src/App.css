@@ -36,14 +36,14 @@ button,
 /*    border-bottom-color: #33399b;*/
 /*}*/
 
-/*._hover03:hover {*/
-/*    background-color: #33399b;*/
-/*    color: #FFFFFF;*/
-/*}*/
+._hover03:hover {
+    background-color: #33399b;
+    color: #FFFFFF;
+}
 
-/*._hover03:hover a {*/
-/*    color: #FFFFFF;*/
-/*}*/
+._hover03:hover a {
+    color: #FFFFFF;
+}
 
 .pop-user-set:target,
 .pop-exit:target,
@@ -83,7 +83,7 @@ button,
 }
 
 .pop-exit {
-    display: none;
+    display: block;
     width: 100%;
     height: 100%;
     min-width: 320px;

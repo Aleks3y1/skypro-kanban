@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 export const PopExitYesButton = styled.button`
     width: 153px;
@@ -63,5 +64,13 @@ export const PopExitGroup = styled.div `
 
     @media only screen and (max-width: 375px) {
         display: block;
+    }
+`;
+
+export const PopNoLink = styled(Link)`
+    color: inherit;
+
+    &:hover {
+        color: inherit;
     }
 `;
