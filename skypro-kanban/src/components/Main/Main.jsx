@@ -5,11 +5,11 @@ import {MainBlock, MainContainer, MainContent} from "./Main.styled.js";
 
 
 export const statusList = [
-    { id: 1, title: "Без статуса" },
-    { id: 2, title: "Нужно сделать" },
-    { id: 3, title: "В работе" },
-    { id: 4, title: "Тестирование" },
-    { id: 5, title: "Готово" },
+    {id: 1, title: "Без статуса"},
+    {id: 2, title: "Нужно сделать"},
+    {id: 3, title: "В работе"},
+    {id: 4, title: "Тестирование"},
+    {id: 5, title: "Готово"},
 ]
 
 const Main = ({cardList}) => {
@@ -30,7 +30,9 @@ const Main = ({cardList}) => {
                             <Column
                                 key={status.id}
                                 title={status.title}
-                                cardList={cardList.tasks.filter((card) => card.status === status.title)}/>
+                                cardList={cardList?.tasks ? cardList.tasks.filter((card) =>
+                                        card.status === status.title) :
+                                    cardList.filter((card) => card.status === status.title)}/>
                         ))}
                     </MainContent>
                 </MainBlock>

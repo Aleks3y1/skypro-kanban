@@ -2,32 +2,39 @@ import {useState} from "react";
 import {Container, HeaderBlock, HeaderButton, HeaderNav, HeaderUser} from "./Header.styled.js";
 import * as S from "./Header.styled.js";
 import {postTodos} from "../../api.js";
-import {Link, useNavigate} from "react-router-dom";
-import {appRoutes} from "../../lib/AppRoutes.jsx";
+import {useNavigate} from "react-router-dom";
+import {routesApp} from "../../lib/RoutesApp.jsx";
 
-    const Header = ({setCards, cards, toggleTheme}) => {
+    const Header = ({setCards, toggleTheme}) => {
     const [state, setState] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = (event) => {
         event.preventDefault();
-        navigate(appRoutes.EXIT);
+        navigate(routesApp.EXIT);
     }
 
     const handleOpenUser = () => {
         setState((prevState) => !prevState);
     }
 
-    const onAddCard = async () => {
+    const onAddCard = async (event) => {
+        event.preventDefault();
         const newCard = {
-            _id: Date.now(),
+            title: "Задача 777",
             topic: "Web Design",
-            title: "Задача 1",
-            date: "30.10.23",
             status: "Без статуса",
+            description: "Подробное описание задачи",
+            date: new Date().toISOString(),
         };
-        const newTodos = await postTodos(cards);
-        setCards(newTodos.data);
+        try {
+            const newTodos = await postTodos(newCard);
+            console.log(newTodos);
+            setCards(newTodos.tasks);
+            navigate(routesApp.MAIN)
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (

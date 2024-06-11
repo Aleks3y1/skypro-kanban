@@ -1,8 +1,8 @@
 import {Navigate, Outlet} from "react-router-dom";
-import {appRoutes} from "../../lib/AppRoutes.jsx";
+import {routesApp} from "../../lib/RoutesApp.jsx";
 
 function PrivateRoute({isAuth}) {
-    return isAuth ? <Outlet /> : <Navigate to={appRoutes.LOGIN} />;
+    return isAuth ? <Outlet /> : <Navigate to={routesApp.LOGIN} />;
 }
 
 export default PrivateRoute;

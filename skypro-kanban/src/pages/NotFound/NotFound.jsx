@@ -1,11 +1,11 @@
 import {Link} from "react-router-dom";
-import {appRoutes} from "../../lib/AppRoutes.jsx";
+import {routesApp} from "../../lib/RoutesApp.jsx";
 
 const NotFound = () => {
     return (
         <>
             <div>Страница не найдена.</div>
-            <Link to={appRoutes.MAIN}>Вернуться на главную страницу</Link>
+            <Link to={routesApp.MAIN}>Вернуться на главную страницу</Link>
         </>
     );
 }
