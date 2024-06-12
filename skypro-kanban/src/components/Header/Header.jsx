@@ -29,7 +29,6 @@ import {routesApp} from "../../lib/RoutesApp.jsx";
         };
         try {
             const newTodos = await postTodos(newCard);
-            console.log(newTodos);
             setCards(newTodos.tasks);
             navigate(routesApp.MAIN)
         } catch (error) {

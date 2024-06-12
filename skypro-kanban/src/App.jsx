@@ -1,5 +1,6 @@
 import "./App.css";
-import RoutesApp from "./lib/RoutesApp.jsx";
+
+import RoutesApp from "./components/AppRoutes/AppRoutes.jsx";
 
 function App() {
 return (
