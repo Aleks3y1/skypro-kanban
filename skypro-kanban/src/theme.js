@@ -3,12 +3,15 @@ export const lightTheme = {
     nav: "#FFFFFF",
     card: "#FFFFFF",
     checkBG: "#EAEEF6",
-    text: "black",
+    text: "#565EEF",
     titleText: "#000000",
     popUserSetBGC: "#FFFFFF'",
     popUserSetThemeP: "#000",
     popUserButton: "#565EEF",
     popUserButtonText: "#565EEF",
+    popExitBGC: "#FFFFFF",
+    popExitTtl: "#000000",
+    popExitButtonText: "#565EEF",
 }
 
 export const darkTheme = {
@@ -22,4 +25,7 @@ export const darkTheme = {
     popUserSetThemeP: "#FFFFFF",
     popUserButton: "#FFFFFF",
     popUserButtonText: "#FFFFFF",
+    popExitBGC: "#20202C",
+    popExitTtl: "#FFFFFF",
+    popExitButtonText: "#FFFFFF",
 }

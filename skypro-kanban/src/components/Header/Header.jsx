@@ -1,24 +1,39 @@
 import {useState} from "react";
 import {Container, HeaderBlock, HeaderButton, HeaderNav, HeaderUser} from "./Header.styled.js";
 import * as S from "./Header.styled.js";
+import {postTodos} from "../../api.js";
+import {useNavigate} from "react-router-dom";
+import {routesApp} from "../../lib/RoutesApp.jsx";
 
-const Header = ({setCards, cards, toggleTheme}) => {
+    const Header = ({setCards, toggleTheme}) => {
     const [state, setState] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = (event) => {
+        event.preventDefault();
+        navigate(routesApp.EXIT);
+    }
 
     const handleOpenUser = () => {
         setState((prevState) => !prevState);
     }
 
-    const onAddCard = () => {
+    const onAddCard = async (event) => {
+        event.preventDefault();
         const newCard = {
-            id: Date.now(),
-            theme: "Web Design",
-            title: "Задача 1",
-            date: "30.10.23",
+            title: "Задача 777",
+            topic: "Web Design",
             status: "Без статуса",
+            description: "Подробное описание задачи",
+            date: new Date().toISOString(),
         };
-        const newCardsList = [...cards, newCard];
-        setCards(newCardsList);
+        try {
+            const newTodos = await postTodos(newCard);
+            setCards(newTodos.tasks);
+            navigate(routesApp.MAIN)
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -27,12 +42,12 @@ const Header = ({setCards, cards, toggleTheme}) => {
                 <HeaderBlock>
                     <div className="header__logo _show _light">
                         <a href="" target="_self">
-                            <img src="../public/logo.png" alt="logo"/>
+                            <img src="/logo.png" alt="logo"/>
                         </a>
                     </div>
                     <div className="header__logo _dark">
                         <a href="" target="_self">
-                            <img src="../public/logo_dark.png" alt="logo"/>
+                            <img src="/logo_dark.png" alt="logo"/>
                         </a>
                     </div>
                     <HeaderNav>
@@ -51,8 +66,8 @@ const Header = ({setCards, cards, toggleTheme}) => {
                                     <input type="checkbox" className="checkbox" name="checkbox"
                                            onChange={toggleTheme}/>
                                 </div>
-                                <button type="button" className="_hover03">
-                                    <a href="#popExit">Выйти</a>
+                                <button type="button" className="_hover03" onClick={handleLogout}>
+                                    Выйти
                                 </button>
                             </div>
                         )}

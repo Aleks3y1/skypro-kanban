@@ -31,6 +31,26 @@ export const GlobalStyle = createGlobalStyle`
         color: #000000;
     }
 
+    .pop-exit__block {
+        background: ${props =>
+                props.theme.body === "#EAEEF6" ? lightTheme.popExitBGC : darkTheme.popExitBGC};
+    }
+    
+    .pop-exit__ttl {
+        color: ${props =>
+                props.theme.body === "#EAEEF6" ? lightTheme.popExitTtl : darkTheme.popExitTtl};
+    }
+
+    .pop-exit__block button:last-child {
+        color: ${props =>
+                props.theme.body === "#EAEEF6" ? lightTheme.popExitButtonText : darkTheme.popExitButtonText};
+        &:hover {
+            color: ${props =>
+                    props.theme.body === "#EAEEF6" ? darkTheme.popExitButtonText : darkTheme.popExitButtonText};
+            border: 0.7px solid var(--palette-navy-60, #33399);
+        }
+    }
+
     .pop-user-set__theme input[type=checkbox] {
         background: ${props =>
                 props.theme.body === "#EAEEF6" ? lightTheme.checkBG : darkTheme.checkBG};
@@ -66,6 +86,9 @@ export const GlobalStyle = createGlobalStyle`
     .pop-user-set button {
         border: 1px solid ${props =>
                 props.theme.body === "#EAEEF6" ? lightTheme.popUserButton : darkTheme.popUserButton};
+        color: ${props =>
+                props.theme.body === "#EAEEF6" ? lightTheme.popUserButtonText : darkTheme.popUserButtonText};
+        transition: all 0.25s linear;
 
         &:hover {
             border: none;
