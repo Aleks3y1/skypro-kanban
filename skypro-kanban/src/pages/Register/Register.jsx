@@ -1,10 +1,11 @@
 import {Container} from "../Login/Login.styled.js";
 import RegisterForm from "../../components/RegisterForm/RegisterForm.jsx";
 
-const Register = () => {
+const Register = ({register, loginRegister, nameRegister, passRegister}) => {
     return (
         <Container>
-            <RegisterForm/>
+            <RegisterForm register={register} loginRegister={loginRegister} nameRegister={nameRegister}
+                          passRegister={passRegister}/>
         </Container>
     );
 }

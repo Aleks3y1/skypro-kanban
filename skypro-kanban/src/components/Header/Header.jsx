@@ -3,7 +3,7 @@ import {Container, HeaderBlock, HeaderButton, HeaderNav, HeaderUser} from "./Hea
 import * as S from "./Header.styled.js";
 import {postTodos} from "../../api.js";
 import {useNavigate} from "react-router-dom";
-import {routesApp} from "../../lib/RoutesApp.jsx";
+import {routesApp} from "../../lib/RoutesApp.js";
 
     const Header = ({setCards, toggleTheme}) => {
     const [state, setState] = useState(false);

@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {routesApp} from "../../lib/RoutesApp.jsx";
+import {routesApp} from "../../lib/RoutesApp.js";
 
 const NotFound = () => {
     return (
