@@ -1,5 +1,5 @@
 import {PopExitGroup, PopExitNoButton, PopExitYesButton, PopNoLink} from "./PopExit.styled.js";
-import {routesApp} from "../../../lib/RoutesApp.jsx";
+import {routesApp} from "../../../lib/RoutesApp.js";
 
 const PopExit = ({logout}) => {
     return (

@@ -2,7 +2,7 @@ import Column from "../Column/Column";
 import {useEffect, useState} from "react";
 import * as S from "./Main.styled.js";
 import {MainBlock, MainContainer, MainContent} from "./Main.styled.js";
-
+import Loader from "../Loader/Loader.jsx";
 
 export const statusList = [
     {id: 1, title: "Без статуса"},
@@ -17,7 +17,7 @@ const Main = ({cardList}) => {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 5000);
     }, []);
 
     return (
@@ -25,7 +25,14 @@ const Main = ({cardList}) => {
             <MainContainer>
                 <MainBlock>
                     <MainContent>
-                        {isLoading && ('Данные загружаются...')}
+                        {isLoading && statusList.map((status) => (
+                            <Loader
+                                key={status.id}
+                                title={status.title}
+                                cardList={cardList?.tasks ? cardList.tasks.filter((card) =>
+                                        card.status === status.title) :
+                                    cardList.filter((card) => card.status === status.title)}/>
+                        ))}
                         {!isLoading && statusList.map((status) => (
                             <Column
                                 key={status.id}
