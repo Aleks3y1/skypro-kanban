@@ -1,21 +1,25 @@
 import Calendar from "../../Calendar/Calendar.jsx";
 import {Link, useParams} from "react-router-dom";
-import {cardList} from "../../../data.js";
 import NotFound from "../../../pages/NotFound/NotFound.jsx";
 import {getTodos} from "../../../api.js";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {UserContext} from "../../../contexts/UserContext.jsx";
 
 const PopBrowse = () => {
     const {id} = useParams();
     const [card, setCard] = useState(null);
+    const {userData} = useContext(UserContext);
 
     useEffect(() => {
-        // Имитация загрузки данных
-        getTodos().then((todos) => {
-            const foundCard = todos.tasks.find((task) => task._id === id);
-            setCard(foundCard);
-        });
-    }, [id]);
+        if (userData?.token) {
+            getTodos(userData.token).then((todos) => {
+                const foundCard = todos.tasks.find((task) => task._id === id);
+                setCard(foundCard);
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+    }, [id, userData?.token]);
 
     if (!card) {
         return <NotFound/>;

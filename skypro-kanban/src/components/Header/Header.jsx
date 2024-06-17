@@ -1,13 +1,15 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Container, HeaderBlock, HeaderButton, HeaderNav, HeaderUser} from "./Header.styled.js";
 import * as S from "./Header.styled.js";
-import {postTodos} from "../../api.js";
 import {useNavigate} from "react-router-dom";
 import {routesApp} from "../../lib/RoutesApp.js";
+import {UserContext} from "../../contexts/UserContext.jsx";
 
-    const Header = ({setCards, toggleTheme}) => {
+const Header = ({toggleTheme}) => {
     const [state, setState] = useState(false);
     const navigate = useNavigate();
+
+    const {userData} = useContext(UserContext);
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -18,22 +20,9 @@ import {routesApp} from "../../lib/RoutesApp.js";
         setState((prevState) => !prevState);
     }
 
-    const onAddCard = async (event) => {
+    const addCardHUD = (event) => {
         event.preventDefault();
-        const newCard = {
-            title: "Задача 777",
-            topic: "Web Design",
-            status: "Без статуса",
-            description: "Подробное описание задачи",
-            date: new Date().toISOString(),
-        };
-        try {
-            const newTodos = await postTodos(newCard);
-            setCards(newTodos.tasks);
-            navigate(routesApp.MAIN)
-        } catch (error) {
-            console.error(error);
-        }
+        navigate(routesApp.NEW_CARD);
     }
 
     return (
@@ -51,11 +40,11 @@ import {routesApp} from "../../lib/RoutesApp.js";
                         </a>
                     </div>
                     <HeaderNav>
-                        <HeaderButton onClick={onAddCard}>
+                        <HeaderButton onClick={addCardHUD}>
                             Создать новую задачу
                         </HeaderButton>
                         <HeaderUser onClick={handleOpenUser}>
-                            Ivan Ivanov
+                            {userData.name}
                         </HeaderUser>
                         {state && (
                             <div className="header__pop-user-set pop-user-set">

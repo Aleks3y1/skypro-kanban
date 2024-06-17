@@ -47,7 +47,6 @@ button,
 
 .pop-user-set:target,
 .pop-exit:target,
-.pop-new-card:target,
 .pop-browse:target {
     display: block;
 }
@@ -259,17 +258,17 @@ button,
     color: #565EEF;
 }
 
-.pop-new-card {
-    display: none;
-    width: 100%;
-    min-width: 375px;
-    height: 100%;
-    min-height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 6;
-}
+/*.pop-new-card {*/
+/*    display: none;*/
+/*    width: 100%;*/
+/*    min-width: 375px;*/
+/*    height: 100%;*/
+/*    min-height: 100vh;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    z-index: 6;*/
+/*}*/
 
 .pop-new-card__container {
     width: 100%;
@@ -921,6 +920,16 @@ button,
 /*    letter-spacing: 0.2px;*/
 /*}*/
 
+.dayPickerSub {
+    color: #94A6BE;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.2px;
+    padding: 0 7px;
+    margin-top: 5px;
+}
+
 @media screen and (max-width: 1200px) {
     /*.main__block {*/
     /*    width: 100%;*/
@@ -954,9 +963,9 @@ button,
 }
 
 @media screen and (max-width: 660px) {
-    .pop-new-card {
-        top: 70px;
-    }
+    /*.pop-new-card {*/
+    /*    top: 70px;*/
+    /*}*/
 
     .pop-new-card__container {
         padding: 0;

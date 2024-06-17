@@ -1,6 +1,4 @@
-let token = null
-
-export async function getTodos() {
+export async function getTodos(token) {
     const response = await fetch(`https://wedev-api.sky.pro/api/kanban`, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -8,12 +6,12 @@ export async function getTodos() {
     });
 
     if (!response.ok) {
-        throw new Error(`Ошибвка: ${response.status}`);
+        throw new Error(`Ошибка: ${response.status}`);
     }
     return await response.json();
 }
 
-export async function postTodos(data) {
+export async function postTodos(token, data) {
     const response = await fetch(`https://wedev-api.sky.pro/api/kanban`, {
         method: 'POST',
         headers: {
@@ -44,9 +42,8 @@ export async function loginInApp({login, password}) {
             throw new Error(`Ошибка: ${response.status}`);
         }
     }
-    const data = await response.json();
-    token = data.user.token;
-    return data;
+
+    return await response.json();
 }
 
 export async function registerInApp({login, name, password}) {

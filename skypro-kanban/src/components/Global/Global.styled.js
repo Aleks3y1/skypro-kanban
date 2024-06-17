@@ -31,19 +31,45 @@ export const GlobalStyle = createGlobalStyle`
         color: #000000;
     }
 
+    .pop-new-card__block, .pop-browse__block {
+        background: ${props =>
+                props.theme.body === "#EAEEF6" ? lightTheme.popExitBGC : darkTheme.popExitBGC};
+    }
+
+    .pop-new-card__ttl, .subttl, .calendar__p span, .pop-browse__ttl {
+        color: ${props =>
+                props.theme.body === "#EAEEF6" ? lightTheme.popExitTtl : darkTheme.popExitTtl};
+    }
+
     .pop-exit__block {
         background: ${props =>
                 props.theme.body === "#EAEEF6" ? lightTheme.popExitBGC : darkTheme.popExitBGC};
     }
-    
+
     .pop-exit__ttl {
         color: ${props =>
                 props.theme.body === "#EAEEF6" ? lightTheme.popExitTtl : darkTheme.popExitTtl};
     }
 
+    .form-browse__area {
+        background: ${props =>
+                props.theme.body === "#EAEEF6" ? "#EAEEF6" : "#151419"};
+    }
+
+    ._btn-bor a {
+        color: ${props =>
+                props.theme.body === "#EAEEF6" ? "#565EEF" : "#FFFFFF"};
+    }
+
+    ._btn-bor {
+        border: 0.7px solid var(--palette-navy-60, ${props =>
+                props.theme.body === "#EAEEF6" ? "#565EEF" : "#FFFFFF"});
+    }
+
     .pop-exit__block button:last-child {
         color: ${props =>
                 props.theme.body === "#EAEEF6" ? lightTheme.popExitButtonText : darkTheme.popExitButtonText};
+
         &:hover {
             color: ${props =>
                     props.theme.body === "#EAEEF6" ? darkTheme.popExitButtonText : darkTheme.popExitButtonText};
