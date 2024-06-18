@@ -17,7 +17,7 @@ const Main = ({cardList}) => {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 5000);
+        }, 2000);
     }, []);
 
     return (
