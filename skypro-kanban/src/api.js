@@ -66,3 +66,25 @@ export async function registerInApp({login, name, password}) {
         console.log('Заполните все поля.');
     }
 }
+
+export async function changeTask({title, topic, status, description, date, _id, token}) {
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${_id}`, {
+        method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            title,
+            topic,
+            status,
+            description,
+            date
+        }),
+    });
+
+    if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status}`);
+    }
+
+    return await response.json();
+}
