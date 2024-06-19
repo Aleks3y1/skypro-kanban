@@ -12,6 +12,7 @@ import {
   TopicStyles,
 } from "./Card.styled.js";
 import { Link } from "react-router-dom";
+import {format} from "date-fns";
 
 const Card = ({ topic, title, date, _id }) => {
   const colorsArr = {
@@ -70,7 +71,7 @@ const Card = ({ topic, title, date, _id }) => {
                 </clipPath>
               </defs>
             </svg>
-            <CardDateP>{date}</CardDateP>
+            <CardDateP>{format(date, 'dd.MM.yyyy')}</CardDateP>
           </CardDate>
         </CardContentStyles>
       </CardsCardStyles>
