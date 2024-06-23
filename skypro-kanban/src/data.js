@@ -1,37 +1,37 @@
 export const cardList = [
     {
-        id: 1,
+        _id: 1,
         theme: "Web Design",
         title: "Задача 1",
-        date: "30.10.23",
+        date: "2023-10-30T00:00:00Z",  // Дата в формате ISO
         status: "Без статуса",
     },
     {
-        id: 2,
+        _id: 2,
         theme: "Research",
         title: "Задача 2",
-        date: "30.10.23",
+        date: "2023-10-30T00:00:00Z",
         status: "Нужно сделать",
     },
     {
-        id: 3,
+        _id: 3,
         theme: "Copywriting",
         title: "Задача 3",
-        date: "30.10.23",
+        date: "2023-10-30T00:00:00Z",
         status: "В работе",
     },
     {
-        id: 4,
+        _id: 4,
         theme: "Copywriting",
         title: "Задача 4",
-        date: "30.10.23",
+        date: "2023-10-30T00:00:00Z",
         status: "Тестирование",
     },
     {
-        id: 4,
+        _id: 5,
         theme: "Copywriting",
         title: "Задача 5",
-        date: "30.10.23",
+        date: "2023-10-30T00:00:00Z",
         status: "Готово",
     },
 ];

@@ -68,7 +68,7 @@ button,
 
 ._gray {
     background: #94A6BE;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
 }
 
 ._active-category {

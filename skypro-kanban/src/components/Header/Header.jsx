@@ -1,15 +1,14 @@
-import {useContext, useState} from "react";
-import {Container, HeaderBlock, HeaderButton, HeaderNav, HeaderUser} from "./Header.styled.js";
+import {useState} from "react";
 import * as S from "./Header.styled.js";
 import {useNavigate} from "react-router-dom";
 import {routesApp} from "../../lib/RoutesApp.js";
-import {UserContext} from "../../contexts/UserContext.jsx";
+import {useUser} from "../../hooks/useUser.js";
 
 const Header = ({toggleTheme}) => {
     const [state, setState] = useState(false);
     const navigate = useNavigate();
 
-    const {userData} = useContext(UserContext);
+    const {userData} = useUser();
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -27,8 +26,8 @@ const Header = ({toggleTheme}) => {
 
     return (
         <S.Header>
-            <Container>
-                <HeaderBlock>
+            <S.Container>
+                <S.HeaderBlock>
                     <div className="header__logo _show _light">
                         <a href="" target="_self">
                             <img src="/logo.png" alt="logo"/>
@@ -39,17 +38,17 @@ const Header = ({toggleTheme}) => {
                             <img src="/logo_dark.png" alt="logo"/>
                         </a>
                     </div>
-                    <HeaderNav>
-                        <HeaderButton onClick={addCardHUD}>
+                    <S.HeaderNav>
+                        <S.HeaderButton onClick={addCardHUD}>
                             Создать новую задачу
-                        </HeaderButton>
-                        <HeaderUser onClick={handleOpenUser}>
+                        </S.HeaderButton>
+                        <S.HeaderUser onClick={handleOpenUser}>
                             {userData.name}
-                        </HeaderUser>
+                        </S.HeaderUser>
                         {state && (
                             <div className="header__pop-user-set pop-user-set">
-                                <p className="pop-user-set__name">Ivan Ivanov</p>
-                                <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
+                                <p className="pop-user-set__name">{userData.name}</p>
+                                <p className="pop-user-set__mail">{userData.login}</p>
                                 <div className="pop-user-set__theme">
                                     <p>Темная тема</p>
                                     <input type="checkbox" className="checkbox" name="checkbox"
@@ -60,9 +59,9 @@ const Header = ({toggleTheme}) => {
                                 </button>
                             </div>
                         )}
-                    </HeaderNav>
-                </HeaderBlock>
-            </Container>
+                    </S.HeaderNav>
+                </S.HeaderBlock>
+            </S.Container>
         </S.Header>
     );
 }

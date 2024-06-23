@@ -6,13 +6,13 @@ export const Form = styled.form`
     flex-direction: column;
     align-items: center;
     width: 248px;
-    height: 229px;
+    min-height: 229px;
     box-sizing: border-box;
 `;
 
 export const FormBlock = styled.div`
     max-width: 368px;
-    max-height: 329px;
+    min-height: 329px;
     top: 285px;
     left: 536px;
     box-sizing: border-box;
@@ -79,4 +79,9 @@ export const FormFooterText = styled.p`
 
 export const FormLink = styled(Link)`
     color: #94A6BE66;
+`;
+
+export const ErrorMessage = styled.p`
+    color: red;
+    font-size: 12px;
 `;

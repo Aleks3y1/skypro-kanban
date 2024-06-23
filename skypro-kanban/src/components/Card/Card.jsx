@@ -17,11 +17,13 @@ import {format} from "date-fns";
 const Card = ({ topic, title, date, _id }) => {
   const colorsArr = {
     "Web Design": "_orange",
-    Research: "_green",
-    Copywriting: "_purple",
+    "Research": "_green",
+    "Copywriting": "_purple",
   };
 
   const color = colorsArr[topic] || "";
+
+  const formattedDate = date ? format(new Date(date), 'dd.MM.yyyy') : 'Invalid Date';
 
   return (
     <CardItemStyles>
@@ -71,7 +73,7 @@ const Card = ({ topic, title, date, _id }) => {
                 </clipPath>
               </defs>
             </svg>
-            <CardDateP>{format(date, 'dd.MM.yyyy')}</CardDateP>
+            <CardDateP>{formattedDate}</CardDateP>
           </CardDate>
         </CardContentStyles>
       </CardsCardStyles>

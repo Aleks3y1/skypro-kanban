@@ -28,42 +28,50 @@ export async function postTodos(token, data) {
 }
 
 export async function loginInApp({login, password}) {
-    const response = await fetch(`https://wedev-api.sky.pro/api/user/login`, {
-        method: 'POST',
-        body: JSON.stringify({
-            login,
-            password
-        }),
-    })
-    if (!response.ok) {
-        if (response.status === 400) {
-            throw new Error('Ошибка: Неверный логин или пароль!');
-        } else {
-            throw new Error(`Ошибка: ${response.status}`);
+    if (login.length > 0 && password.length > 0) {
+        const response = await fetch(`https://wedev-api.sky.pro/api/user/login`, {
+            method: 'POST',
+            body: JSON.stringify({
+                login,
+                password
+            }),
+        })
+        if (!response.ok) {
+            if (response.status === 400) {
+                throw new Error('Ошибка: Неверный логин или пароль!');
+            } else {
+                throw new Error(`Ошибка: ${response.status}`);
+            }
         }
-    }
 
-    return await response.json();
+        return await response.json();
+    } else {
+        console.log('Заполните все поля!');
+    }
 }
 
 export async function registerInApp({login, name, password}) {
     if (login.length > 0 && name.length > 0 && password.length > 0) {
-        return fetch(`https://wedev-api.sky.pro/api/user`, {
+        const response = await fetch(`https://wedev-api.sky.pro/api/user`, {
             method: 'POST',
             body: JSON.stringify({
                 login,
                 name,
                 password
             }),
-        }).then((response) => {
+        });
+
+        if (!response.ok) {
             if (response.status === 400) {
                 throw new Error('Ошибка: пользователь уже существует!');
             } else {
-                return response.json();
+                throw new Error(`Ошибка: ${response.status}`);
             }
-        })
+        }
+
+        return await response.json();
     } else {
-        console.log('Заполните все поля.');
+        throw new Error('Заполните все поля.');
     }
 }
 
@@ -80,6 +88,21 @@ export async function changeTask({title, topic, status, description, date, _id, 
             description,
             date
         }),
+    });
+
+    if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status}`);
+    }
+
+    return await response.json();
+}
+
+export async function deleteTask(token, id) {
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
     });
 
     if (!response.ok) {

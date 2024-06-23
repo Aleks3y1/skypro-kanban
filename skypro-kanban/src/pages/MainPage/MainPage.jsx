@@ -1,23 +1,23 @@
 import "../../App.css";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {ThemeProvider} from "styled-components";
 import {Wrapper} from "./MainPage.styled.js";
 import {GlobalStyle} from "../../components/Global/Global.styled.js";
 import Header from "../../components/Header/Header.jsx";
 import Main from "../../components/Main/Main.jsx";
 import {darkTheme, lightTheme} from "../../theme.js";
-import {cardList} from "../../data.js";
 import {Outlet} from "react-router-dom";
-import {UserContext} from "../../contexts/UserContext.jsx";
+import {useUser} from "../../hooks/useUser.js";
+import {useTask} from "../../hooks/useTask.js";
 
 const MainPage = ({fetchTodos}) => {
-    const [cards, setCards] = useState(cardList);
+    const {setTasks} = useTask();
     const [theme, setTheme] = useState("light");
-    const {userData} = useContext(UserContext);
+    const {userData} = useUser();
 
     useEffect(() => {
         if (userData) {
-            fetchTodos(setCards);
+            fetchTodos(setTasks);
         }
     }, [fetchTodos, userData]);
 
@@ -34,8 +34,8 @@ const MainPage = ({fetchTodos}) => {
                 {/*<PopBrowse/>*/}
 
                 <Outlet/>
-                <Header setCards={setCards} cards={cards} toggleTheme={toggleTheme}/>
-                <Main cardList={cards}/>
+                <Header toggleTheme={toggleTheme}/>
+                <Main/>
             </Wrapper>
         </ThemeProvider>
     );

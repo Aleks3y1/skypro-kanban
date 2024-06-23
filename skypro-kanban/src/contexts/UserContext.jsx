@@ -12,6 +12,7 @@ const UserProvider = ({children}) => {
         event.preventDefault();
         setUserData(null);
         localStorage.removeItem("user");
+        localStorage.removeItem("token");
     }
 
     const setUser = (newUser) => {
