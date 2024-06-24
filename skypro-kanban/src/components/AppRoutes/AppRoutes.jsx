@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import {useRef, useState} from "react";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import PrivateRoute from "../PrivateRoute/PrivateRoute.jsx";
 import MainPage from "../../pages/MainPage/MainPage.jsx";
 import Exit from "../../pages/Exit/Exit.jsx";
@@ -8,13 +8,13 @@ import NewCard from "../../pages/NewCard/NewCard.jsx";
 import Login from "../../pages/Login/Login.jsx";
 import Register from "../../pages/Register/Register.jsx";
 import NotFound from "../../pages/NotFound/NotFound.jsx";
-import { routesApp } from "../../lib/RoutesApp.js";
-import { getTodos, loginInApp, registerInApp } from "../../api.js";
-import { useUser } from "../../hooks/useUser.js";
+import {routesApp} from "../../lib/RoutesApp.js";
+import {getTodos, loginInApp, registerInApp} from "../../api.js";
+import {useUser} from "../../hooks/useUser.js";
 
 const RoutesApp = () => {
     const navigate = useNavigate();
-    const { userData, setUser, logout } = useUser();
+    const {userData, setUser, logout} = useUser();
 
     const emailUser = useRef(null);
     const passwordUser = useRef(null);
@@ -23,10 +23,10 @@ const RoutesApp = () => {
     const nameRegister = useRef(null);
     const passRegister = useRef(null);
 
-    const [errors, setErrors] = useState({});
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isFormValid, setIsFormValid] = useState(true);
-    const [hasTriedSubmit, setHasTriedSubmit] = useState(false);
+    const [setErrors] = useState({});
+    const [setIsSubmitting] = useState(false);
+    //const [setIsFormValid] = useState(true);
+    const [setHasTriedSubmit] = useState(false);
 
     const validateForm = () => {
         const newErrors = {};
@@ -42,11 +42,11 @@ const RoutesApp = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleInputChange = () => {
-        if (hasTriedSubmit) {
-            setIsFormValid(validateForm());
-        }
-    };
+    // const handleInputChange = () => {
+    //     if (hasTriedSubmit) {
+    //         setIsFormValid(validateForm());
+    //     }
+    // };
 
     const login = async (event) => {
         event.preventDefault();
@@ -58,8 +58,10 @@ const RoutesApp = () => {
                     login: emailUser.current.value,
                     password: passwordUser.current.value
                 });
-                setUser(response.user);
-                navigate(routesApp.MAIN);
+                if (!response.error) {
+                    setUser(response.user);
+                    navigate(routesApp.MAIN);
+                }
             } catch (error) {
                 console.error(error);
                 setErrors((prevErrors) => ({

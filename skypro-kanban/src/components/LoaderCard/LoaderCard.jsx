@@ -1,4 +1,4 @@
-import {LoaderContent, LoaderCrumbs, LoaderDate, LoaderStatus} from "../Loader/Loader.styled.jsx";
+import {LoaderContent, LoaderCrumbs, LoaderDate, LoaderStatus} from "../Loader/Loader.styled.js";
 import {
     CardContentStyles,
     CardGroupStyles,

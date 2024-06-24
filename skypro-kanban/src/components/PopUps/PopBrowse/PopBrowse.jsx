@@ -3,12 +3,12 @@ import NotFound from "../../../pages/NotFound/NotFound.jsx";
 import {useEffect, useState} from "react";
 import {CardStyle} from "../../../lib/CardStyle.js";
 import {useUser} from "../../../hooks/useUser.js";
-import MyDatePicker from "../../DatePicker/MyDatePicker.jsx";
 import * as S from "../PopNewCard/PopNewCard.styled.js";
 import {useTask} from "../../../hooks/useTask.js";
 import {getTodos} from "../../../api.js";
 import {routesApp} from "../../../lib/RoutesApp.js";
 import {FormTextareaPop} from "./TextAreaStyle.js";
+import Calendar from "../../Calendar/Calendar.jsx";
 
 const PopBrowse = () => {
     const {id} = useParams();
@@ -154,7 +154,7 @@ const PopBrowse = () => {
                             </form>
                             <S.FormNewBlockCalc>
                                 <S.FormLabel>Даты</S.FormLabel>
-                                <MyDatePicker
+                                <Calendar
                                     mode="single"
                                     selected={selectedDate}
                                     onSelect={setSelectedDate}

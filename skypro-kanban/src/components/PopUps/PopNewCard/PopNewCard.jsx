@@ -1,16 +1,15 @@
 import * as S from "./PopNewCard.styled.js";
 import { useRef, useState } from "react";
 import { routesApp } from "../../../lib/RoutesApp.js";
-import MyDatePicker from "../../DatePicker/MyDatePicker.jsx";
-import { useUser } from "../../../hooks/useUser.js";
 import { useTask } from "../../../hooks/useTask.js";
+import Calendar from "../../Calendar/Calendar.jsx";
 
 const PopNewCard = () => {
     const newCardTitle = useRef(null);
     const newCardDescription = useRef(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [newCardTopic, setNewCardTopic] = useState("Web Design");
-    const { userData } = useUser();
+    //const { userData } = useUser();
     const { onAddTask } = useTask();
 
     const handleAddCard = async (event) => {
@@ -50,7 +49,7 @@ const PopNewCard = () => {
                             </S.PopNewCardForm>
                             <S.FormNewBlockCalc>
                                 <S.FormLabel>Даты</S.FormLabel>
-                                <MyDatePicker
+                                <Calendar
                                     mode="single"
                                     selected={selectedDate}
                                     onSelect={setSelectedDate}

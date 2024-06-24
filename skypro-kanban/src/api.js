@@ -38,15 +38,15 @@ export async function loginInApp({login, password}) {
         })
         if (!response.ok) {
             if (response.status === 400) {
-                throw new Error('Ошибка: Неверный логин или пароль!');
+                alert('Ошибка: Неверный логин или пароль!');
             } else {
-                throw new Error(`Ошибка: ${response.status}`);
+                alert(`Ошибка: ${response.status}`);
             }
         }
 
         return await response.json();
     } else {
-        console.log('Заполните все поля!');
+        alert('Заполните все поля!');
     }
 }
 
@@ -63,9 +63,9 @@ export async function registerInApp({login, name, password}) {
 
         if (!response.ok) {
             if (response.status === 400) {
-                throw new Error('Ошибка: пользователь уже существует!');
+                alert('Ошибка: пользователь уже существует!');
             } else {
-                throw new Error(`Ошибка: ${response.status}`);
+                alert(`Ошибка: ${response.status}`);
             }
         }
 
