@@ -1,6 +1,6 @@
 import {useState} from "react";
 import * as S from "./Header.styled.js";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {routesApp} from "../../lib/RoutesApp.js";
 import {useUser} from "../../hooks/useUser.js";
 
@@ -28,16 +28,16 @@ const Header = ({toggleTheme}) => {
         <S.Header>
             <S.Container>
                 <S.HeaderBlock>
-                    <div className="header__logo _show _light">
-                        <a href="" target="_self">
-                            <img src="/logo.png" alt="logo"/>
-                        </a>
-                    </div>
-                    <div className="header__logo _dark">
-                        <a href="" target="_self">
-                            <img src="/logo_dark.png" alt="logo"/>
-                        </a>
-                    </div>
+                    <S.HeaderLogoWrapLight>
+                        <Link to={routesApp.MAIN} target="_self">
+                            <S.HeaderLogo src="/logo.png" alt="logo"/>
+                        </Link>
+                    </S.HeaderLogoWrapLight>
+                    <S.HeaderLogoWrapDark>
+                        <Link to={routesApp.MAIN} target="_self">
+                            <S.HeaderLogo src="/logo_dark.png" alt="logo"/>
+                        </Link>
+                    </S.HeaderLogoWrapDark>
                     <S.HeaderNav>
                         <S.HeaderButton onClick={addCardHUD}>
                             Создать новую задачу
@@ -46,18 +46,18 @@ const Header = ({toggleTheme}) => {
                             {userData.name}
                         </S.HeaderUser>
                         {state && (
-                            <div className="header__pop-user-set pop-user-set">
-                                <p className="pop-user-set__name">{userData.name}</p>
-                                <p className="pop-user-set__mail">{userData.login}</p>
-                                <div className="pop-user-set__theme">
-                                    <p>Темная тема</p>
-                                    <input type="checkbox" className="checkbox" name="checkbox"
+                            <S.HeaderPopUserSet>
+                                <S.PopUserName>{userData.name}</S.PopUserName>
+                                <S.PopUserEmail>{userData.login}</S.PopUserEmail>
+                                <S.PopUserTheme>
+                                    <S.PopUserThemeP>Темная тема</S.PopUserThemeP>
+                                    <S.PopUserThemeInput type="checkbox" name="checkbox"
                                            onChange={toggleTheme}/>
-                                </div>
-                                <button type="button" className="_hover03" onClick={handleLogout}>
+                                </S.PopUserTheme>
+                                <S.PopUpButton onClick={handleLogout}>
                                     Выйти
-                                </button>
-                            </div>
+                                </S.PopUpButton>
+                            </S.HeaderPopUserSet>
                         )}
                     </S.HeaderNav>
                 </S.HeaderBlock>

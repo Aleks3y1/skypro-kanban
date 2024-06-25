@@ -1,18 +1,18 @@
 import Card from "../Card/Card";
-import {ColumnCards, ColumnContent, ColumnTitle, MainColumn} from "./Column.styled.js";
+import * as S from "./Column.styled.js";
 
 const Column = ({title, cardList}) => {
     return (
-        <MainColumn>
-            <ColumnTitle>
-                <ColumnContent>{title}</ColumnContent>
-            </ColumnTitle>
-            <ColumnCards>
+        <S.MainColumn>
+            <S.ColumnTitle>
+                <S.ColumnContent>{title}</S.ColumnContent>
+            </S.ColumnTitle>
+            <S.ColumnCards>
                 {cardList.map((card) => (
                     <Card key={card._id} {...card} />
                 ))}
-            </ColumnCards>
-        </MainColumn>
+            </S.ColumnCards>
+        </S.MainColumn>
     );
 };
 

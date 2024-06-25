@@ -5,7 +5,7 @@ export const lightTheme = {
     checkBG: "#EAEEF6",
     text: "#565EEF",
     titleText: "#000000",
-    popUserSetBGC: "#FFFFFF'",
+    popUserSetBGC: "#FFFFFF",
     popUserSetThemeP: "#000",
     popUserButton: "#565EEF",
     popUserButtonText: "#565EEF",

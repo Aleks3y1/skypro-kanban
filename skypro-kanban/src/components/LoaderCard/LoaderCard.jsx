@@ -1,26 +1,21 @@
-import {LoaderContent, LoaderCrumbs, LoaderDate, LoaderStatus} from "../Loader/Loader.styled.js";
-import {
-    CardContentStyles,
-    CardGroupStyles,
-    CardItemStyles,
-    CardsCardStyles,
-} from "../Card/Card.styled.js";
+import * as A from "../Loader/Loader.styled.js";
+import * as S from "../Card/Card.styled.js";
 
 const LoaderCard = () => {
 
     return (
-        <CardItemStyles>
-            <CardsCardStyles>
-                <CardGroupStyles>
-                    <LoaderStatus/>
-                    <LoaderCrumbs/>
-                </CardGroupStyles>
-                <CardContentStyles>
-                    <LoaderContent/>
-                    <LoaderDate/>
-                </CardContentStyles>
-            </CardsCardStyles>
-        </CardItemStyles>
+        <S.CardItemStyles>
+            <S.CardsCardStyles>
+                <S.CardGroupStyles>
+                    <A.LoaderStatus/>
+                    <A.LoaderCrumbs/>
+                </S.CardGroupStyles>
+                <S.CardContentStyles>
+                    <A.LoaderContent/>
+                    <A.LoaderDate/>
+                </S.CardContentStyles>
+            </S.CardsCardStyles>
+        </S.CardItemStyles>
     );
 };
 
