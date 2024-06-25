@@ -23,10 +23,9 @@ const RoutesApp = () => {
     const nameRegister = useRef(null);
     const passRegister = useRef(null);
 
-    const [setErrors] = useState({});
-    const [setIsSubmitting] = useState(false);
-    //const [setIsFormValid] = useState(true);
-    const [setHasTriedSubmit] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [hasTriedSubmit, setHasTriedSubmit] = useState(false);
 
     const validateForm = () => {
         const newErrors = {};
@@ -41,12 +40,6 @@ const RoutesApp = () => {
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-
-    // const handleInputChange = () => {
-    //     if (hasTriedSubmit) {
-    //         setIsFormValid(validateForm());
-    //     }
-    // };
 
     const login = async (event) => {
         event.preventDefault();
