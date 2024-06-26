@@ -154,7 +154,7 @@ export const PopBrowseBtnEdit = styled.button`
             props.theme.body === "#EAEEF6" ? "#565EEF" : "#FFFFFF"});
     outline: none;
     background: transparent;
-    margin-right: 0;
+    margin-right: 8px;
     height: 30px;
     margin-bottom: 10px;
     padding: 0 14px;
