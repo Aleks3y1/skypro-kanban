@@ -145,6 +145,14 @@ export const PopBrowseButton = styled.button`
 `;
 
 export const PopBrowseLink = styled(Link)`
+    color: ${props =>
+            props.theme.body === "#EAEEF6" ? "#565EEF" : "#FFFFFF"};
+    &:hover {
+        color: #FFFFFF;
+    }
+`;
+
+export const PopBrowseLinkExit = styled(Link)`
     color: #FFFFFF;
 `;
 

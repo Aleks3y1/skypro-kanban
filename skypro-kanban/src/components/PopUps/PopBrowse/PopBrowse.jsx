@@ -1,4 +1,4 @@
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import NotFound from "../../../pages/NotFound/NotFound.jsx";
 import {useEffect, useState} from "react";
 import {CardStyle} from "../../../lib/CardStyle.js";
@@ -10,12 +10,6 @@ import {routesApp} from "../../../lib/RoutesApp.js";
 import {FormTextareaPop} from "./TextAreaStyle.js";
 import Calendar from "../../Calendar/Calendar.jsx";
 import {
-    PopNewCardBlock,
-    PopNewCardContainer,
-    PopNewCardContent, PopNewCardH3,
-    PopNewCardHUD
-} from "../PopNewCard/PopNewCard.styled.js";
-import {
     BtnGroup,
     CategoriesTheme,
     CategoriesThemeTtl,
@@ -24,7 +18,7 @@ import {
     PopBrowseBtnEdit,
     PopBrowseButton,
     PopBrowseForm,
-    PopBrowseLink,
+    PopBrowseLink, PopBrowseLinkExit,
     PopBrowseStatus,
     PopBrowseTopBlock,
     PopBrowseWrapper,
@@ -118,15 +112,14 @@ const PopBrowse = () => {
     if (!task) {
         return <NotFound/>;
     }
-    console.log(color);
 
     return (
-        <PopNewCardHUD>
-            <PopNewCardContainer>
-                <PopNewCardBlock>
+        <S.PopNewCardHUD>
+            <S.PopNewCardContainer>
+                <S.PopNewCardBlock>
                     <div className="pop-browse__content">
                         <PopBrowseTopBlock>
-                            <PopNewCardH3>{task.title}</PopNewCardH3>
+                            <S.PopNewCardH3>{task.title}</S.PopNewCardH3>
                             <CategoriesTheme $color={color}>
                                 <CategoriesThemeTtl>{task.topic}</CategoriesThemeTtl>
                             </CategoriesTheme>
@@ -213,7 +206,7 @@ const PopBrowse = () => {
                                 </PopBrowseBtnEdit>
                             </BtnGroup>
                             <PopBrowseButton>
-                                <PopBrowseLink to={"/"}>Закрыть</PopBrowseLink>
+                                <PopBrowseLinkExit to={"/"}>Закрыть</PopBrowseLinkExit>
                             </PopBrowseButton>
                         </div>
                         <div className="pop-browse__btn-edit _hide" style={{display: modifyCard}}>
@@ -237,9 +230,9 @@ const PopBrowse = () => {
                             </button>
                         </div>
                     </div>
-                </PopNewCardBlock>
-            </PopNewCardContainer>
-        </PopNewCardHUD>
+                </S.PopNewCardBlock>
+            </S.PopNewCardContainer>
+        </S.PopNewCardHUD>
     );
 }
 
