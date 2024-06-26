@@ -9,6 +9,31 @@ import {getTodos} from "../../../api.js";
 import {routesApp} from "../../../lib/RoutesApp.js";
 import {FormTextareaPop} from "./TextAreaStyle.js";
 import Calendar from "../../Calendar/Calendar.jsx";
+import {
+    PopNewCardBlock,
+    PopNewCardContainer,
+    PopNewCardContent, PopNewCardH3,
+    PopNewCardHUD
+} from "../PopNewCard/PopNewCard.styled.js";
+import {
+    BtnGroup,
+    CategoriesTheme,
+    CategoriesThemeTtl,
+    CurrentStatusTheme,
+    FormBrowseBlock,
+    PopBrowseBtnEdit,
+    PopBrowseButton,
+    PopBrowseForm,
+    PopBrowseLink,
+    PopBrowseStatus,
+    PopBrowseTopBlock,
+    PopBrowseWrapper,
+    StatusText,
+    StatusTheme,
+    StatusThemes,
+    SubTitle,
+    SubTitleLabel
+} from "./PopBrowse.styled.js";
 
 const PopBrowse = () => {
     const {id} = useParams();
@@ -23,6 +48,15 @@ const PopBrowse = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [description, setDescription] = useState("");
     const navigate = useNavigate();
+    const [color, setColor] = useState(null);
+
+    const colorsArray = {
+        "Web Design": "_orange",
+        "Research": "_green",
+        "Copywriting": "_purple",
+    };
+
+
 
     useEffect(() => {
         const fetchCard = async () => {
@@ -35,6 +69,7 @@ const PopBrowse = () => {
                         setSelectedDate(new Date(foundCard.date));
                         setCurrentStatus(foundCard.status);
                         setDescription(foundCard.description);
+                        setColor(colorsArray[foundCard.topic]);
                     }
                 }
             } catch (error) {
@@ -46,6 +81,7 @@ const PopBrowse = () => {
 
         fetchCard();
     }, [id, userData?.token]);
+    console.log(task);
 
     const handleModifyCard = () => {
         setModifyCard("flex");
@@ -82,66 +118,65 @@ const PopBrowse = () => {
     if (!task) {
         return <NotFound/>;
     }
+    console.log(color);
 
     return (
-        <div className="pop-browse" id="popBrowse">
-            <div className="pop-browse__container">
-                <div className="pop-browse__block">
+        <PopNewCardHUD>
+            <PopNewCardContainer>
+                <PopNewCardBlock>
                     <div className="pop-browse__content">
-                        <div className="pop-browse__top-block">
-                            <h3 className="pop-browse__ttl">{task.title}</h3>
-                            <div className="categories__theme theme-top _orange _active-category">
-                                <p className="_orange">{task.topic}</p>
-                            </div>
-                        </div>
-                        <div className="pop-browse__status status">
-                            <p className="status__p subttl">Статус</p>
-                            <div className="status__themes">
+                        <PopBrowseTopBlock>
+                            <PopNewCardH3>{task.title}</PopNewCardH3>
+                            <CategoriesTheme $color={color}>
+                                <CategoriesThemeTtl>{task.topic}</CategoriesThemeTtl>
+                            </CategoriesTheme>
+                        </PopBrowseTopBlock>
+                        <PopBrowseStatus>
+                            <SubTitle>Статус</SubTitle>
+                            <StatusThemes>
                                 {modifyCard === "flex" ? (
                                     <>
-                                        <div className="status__theme"
+                                        <StatusTheme
                                              onClick={() => handleCurrentStatusChange("Без статуса")}
                                              style={CardStyle("flex", currentStatus, "Без статуса")}>
-                                            <p>Без статуса</p>
-                                        </div>
-                                        <div className="status__theme"
+                                            <StatusText>Без статуса</StatusText>
+                                        </StatusTheme>
+                                        <StatusTheme
                                              onClick={() => handleCurrentStatusChange("Нужно сделать")}
                                              style={CardStyle("flex", currentStatus, "Нужно сделать")}>
-                                            <p>Нужно сделать</p>
-                                        </div>
-                                        <div className="status__theme"
+                                            <StatusText>Нужно сделать</StatusText>
+                                        </StatusTheme>
+                                        <StatusTheme
                                              onClick={() => handleCurrentStatusChange("В работе")}
                                              style={CardStyle("flex", currentStatus, "В работе")}>
-                                            <p>В работе</p>
-                                        </div>
-                                        <div className="status__theme"
+                                            <StatusText>В работе</StatusText>
+                                        </StatusTheme>
+                                        <StatusTheme
                                              onClick={() => handleCurrentStatusChange("Тестирование")}
                                              style={CardStyle("flex", currentStatus, "Тестирование")}>
-                                            <p>Тестирование</p>
-                                        </div>
-                                        <div className="status__theme"
+                                            <StatusText>Тестирование</StatusText>
+                                        </StatusTheme>
+                                        <StatusTheme
                                              onClick={() => handleCurrentStatusChange("Готово")}
                                              style={CardStyle("flex", currentStatus, "Готово")}>
-                                            <p>Готово</p>
-                                        </div>
+                                            <StatusText>Готово</StatusText>
+                                        </StatusTheme>
                                     </>
                                 ) : (
-                                    <div className="status__theme _gray">
-                                        <p>{currentStatus}</p>
-                                    </div>
+                                    <CurrentStatusTheme>
+                                        <StatusText>{currentStatus}</StatusText>
+                                    </CurrentStatusTheme>
                                 )}
-                            </div>
-                        </div>
-                        <div className="pop-browse__wrap">
-                            <form
-                                className="pop-browse__form form-browse"
-                                id="formBrowseCard"
+                            </StatusThemes>
+                        </PopBrowseStatus>
+                        <PopBrowseWrapper>
+                            <PopBrowseForm
                                 action="#"
                             >
-                                <div className="form-browse__block">
-                                    <label htmlFor="textArea01" className="subttl">
+                                <FormBrowseBlock>
+                                    <SubTitleLabel htmlFor="textArea01">
                                         Описание задачи
-                                    </label>
+                                    </SubTitleLabel>
                                     <FormTextareaPop
                                         className="form-browse__area"
                                         name="text"
@@ -150,8 +185,8 @@ const PopBrowse = () => {
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         style={{color: !modifyCalendar ? "" : "#94A6BE"}}/>
-                                </div>
-                            </form>
+                                </FormBrowseBlock>
+                            </PopBrowseForm>
                             <S.FormNewBlockCalc>
                                 <S.FormLabel>Даты</S.FormLabel>
                                 <Calendar
@@ -161,50 +196,50 @@ const PopBrowse = () => {
                                     nonClickable={modifyCalendar}
                                 />
                             </S.FormNewBlockCalc>
-                        </div>
-                        <div className="theme-down__categories theme-down">
-                            <p className="categories__p subttl">Категория</p>
-                            <div className="categories__theme _orange _active-category">
-                                <p className="_orange">Web Design</p>
-                            </div>
-                        </div>
+                        </PopBrowseWrapper>
+                        {/*<div className="theme-down__categories theme-down">*/}
+                        {/*    <p className="categories__p subttl">Категория</p>*/}
+                        {/*    <div className="categories__theme _orange _active-category">*/}
+                        {/*        <p className="_orange">Web Design</p>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                         <div className="pop-browse__btn-browse" style={{display: hideBlock}}>
-                            <div className="btn-group">
-                                <button className="btn-browse__edit _btn-bor _hover03" onClick={handleModifyCard}>
-                                    <a href="#">Редактировать задачу</a>
-                                </button>
-                                <button className="btn-browse__delete _btn-bor _hover03" onClick={handleDelete}>
-                                    <a href="#">Удалить задачу</a>
-                                </button>
-                            </div>
-                            <button className="btn-browse__close _btn-bg _hover01">
-                                <Link to={"/"}>Закрыть</Link>
-                            </button>
+                            <BtnGroup>
+                                <PopBrowseBtnEdit onClick={handleModifyCard}>
+                                    <PopBrowseLink to="#">Редактировать задачу</PopBrowseLink>
+                                </PopBrowseBtnEdit>
+                                <PopBrowseBtnEdit onClick={handleDelete}>
+                                    <PopBrowseLink to={routesApp.MAIN}>Удалить задачу</PopBrowseLink>
+                                </PopBrowseBtnEdit>
+                            </BtnGroup>
+                            <PopBrowseButton>
+                                <PopBrowseLink to={"/"}>Закрыть</PopBrowseLink>
+                            </PopBrowseButton>
                         </div>
                         <div className="pop-browse__btn-edit _hide" style={{display: modifyCard}}>
                             <div className="btn-group">
                                 <button className="btn-edit__edit _btn-bg _hover01" onClick={handleSave}>
-                                    <a href="#">Сохранить</a>
+                                    <PopBrowseLink to="#">Сохранить</PopBrowseLink>
                                 </button>
                                 <button className="btn-edit__edit _btn-bor _hover03">
-                                    <Link to={"/"}>Отменить</Link>
+                                    <PopBrowseLink to={"/"}>Отменить</PopBrowseLink>
                                 </button>
                                 <button
                                     className="btn-edit__delete _btn-bor _hover03"
                                     id="btnDelete"
                                     onClick={handleDelete}
                                 >
-                                    <a href="#">Удалить задачу</a>
+                                    <PopBrowseLink to={routesApp.MAIN}>Удалить задачу</PopBrowseLink>
                                 </button>
                             </div>
                             <button className="btn-edit__close _btn-bg _hover01">
-                                <Link to={"/"}>Закрыть</Link>
+                                <PopBrowseLink to={"/"}>Закрыть</PopBrowseLink>
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </PopNewCardBlock>
+            </PopNewCardContainer>
+        </PopNewCardHUD>
     );
 }
 
