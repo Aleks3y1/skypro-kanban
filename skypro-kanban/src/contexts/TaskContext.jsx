@@ -1,14 +1,14 @@
-import { createContext, useEffect, useState } from "react";
-import { changeTask, getTodos, postTodos, deleteTask } from "../api.js";
-import { useUser } from "../hooks/useUser.js";
-import { routesApp } from "../lib/RoutesApp.js";
-import { useNavigate } from "react-router-dom";
+import {createContext, useEffect, useState} from "react";
+import {changeTask, getTodos, postTodos, deleteTask} from "../api.js";
+import {useUser} from "../hooks/useUser.js";
+import {routesApp} from "../lib/RoutesApp.js";
+import {useNavigate} from "react-router-dom";
 
 export const TaskContext = createContext(null);
 
-export const TaskProvider = ({ children }) => {
+export const TaskProvider = ({children}) => {
     const [tasks, setTasks] = useState([]);
-    const { userData } = useUser();
+    const {userData} = useUser();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export const TaskProvider = ({ children }) => {
         };
     }, [userData]);
 
-    const onAddTask = async ({ event, newCardTitle, newCardTopic, newCardDescription, selectedDate }) => {
+    const onAddTask = async ({event, newCardTitle, newCardTopic, newCardDescription, selectedDate}) => {
         event.preventDefault();
         if (!selectedDate) {
             alert('Дата не выбрана!');
@@ -88,7 +88,7 @@ export const TaskProvider = ({ children }) => {
     }
 
     return (
-        <TaskContext.Provider value={{ tasks, setTasks, onAddTask, editTask, removeTask }}>
+        <TaskContext.Provider value={{tasks, setTasks, onAddTask, editTask, removeTask}}>
             {children}
         </TaskContext.Provider>
     );

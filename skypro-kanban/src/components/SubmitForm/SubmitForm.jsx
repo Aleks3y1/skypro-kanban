@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import {
     FormBlock,
     FormButton,
@@ -11,7 +11,7 @@ import {
     ErrorMessage // Assuming you have an ErrorMessage styled component
 } from "./SubmitForm.styled.js";
 
-const SubmitForm = ({ login, emailUser, passwordUser }) => {
+const SubmitForm = ({login, emailUser, passwordUser}) => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isFormValid, setIsFormValid] = useState(true);
@@ -64,7 +64,7 @@ const SubmitForm = ({ login, emailUser, passwordUser }) => {
                     name="email"
                     placeholder="Эл. почта"
                     ref={emailUser}
-                    style={{ borderColor: errors.email ? 'red' : '' }}
+                    style={{borderColor: errors.email ? 'red' : ''}}
                     onChange={handleInputChange}
                 />
                 <FormInput
@@ -72,7 +72,7 @@ const SubmitForm = ({ login, emailUser, passwordUser }) => {
                     name="password"
                     placeholder="Пароль"
                     ref={passwordUser}
-                    style={{ borderColor: errors.password ? 'red' : '' }}
+                    style={{borderColor: errors.password ? 'red' : ''}}
                     onChange={handleInputChange}
                 />
                 {!isFormValid ?

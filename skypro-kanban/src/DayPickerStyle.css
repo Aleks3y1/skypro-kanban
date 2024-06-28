@@ -1,5 +1,5 @@
 .rdp {
-    --rdp-cell-size:22px; /* Size of the day cells. */
+    --rdp-cell-size: 22px; /* Size of the day cells. */
     --rdp-caption-font-size: 14px; /* Font size for the caption labels. */
     --rdp-accent-color: #94A6BE; /* Accent color for the background of selected days. */
     --rdp-background-color: #e7edff; /* Background color for the hovered/focused elements. */
@@ -15,10 +15,8 @@
 /* Hide elements for devices that are not screen readers */
 .rdp-vhidden {
     box-sizing: border-box;
-    padding: 0;
     margin: 0;
     background: transparent;
-    border: 0;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
@@ -75,11 +73,11 @@
 }
 
 .rdp-months {
-//display: flex;
+/ / display: flex;
 }
 
 .rdp-month {
-//margin: 0 1em;
+/ / margin: 0 1 em;
 }
 
 .rdp-month:first-child {
@@ -91,19 +89,29 @@
 }
 
 .rdp-table {
-    margin: 0;
     max-width: calc(var(--rdp-cell-size) * 7);
     color: #94A6BE;
     font-size: 10px;
     font-weight: 500;
     line-height: normal;
     letter-spacing: -0.2px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
     /*border-collapse: collapse;*/
+
+    @media screen and (max-width: 660px) {
+        padding: 0;
+        max-width: 100%;
+        width: 100%;
+    }
 }
 
 .rdp-with_weeknumber .rdp-table {
     max-width: calc(var(--rdp-cell-size) * 8);
     /*border-collapse: collapse;*/
+    @media screen and (max-width: 660px) {
+        max-width: 100%;
+    }
 }
 
 .rdp-caption {
@@ -113,6 +121,11 @@
     text-align: left;
     margin-top: 14px;
     padding: 0 7px;
+    width: 100%;
+
+    @media screen and (max-width: 660px) {
+        padding: 0;
+    }
 }
 
 .rdp-multiple_months .rdp-caption {
@@ -134,12 +147,9 @@
     margin: 0;
     padding: 0 0.25em;
     white-space: nowrap;
-    color: currentColor;
-    border: 0;
     border: 2px solid transparent;
     font-family: inherit;
     font-size: var(--rdp-caption-font-size);
-    font-weight: bold;
     color: #94A6BE;
     line-height: 25px;
     font-weight: 600;
@@ -227,6 +237,10 @@
     height: 100%;
     margin: 7px 0;
     padding: 0 7px;
+
+    @media screen and (max-width: 660px) {
+        font-size: 14px;
+    }
 }
 
 .rdp-head_cell {
@@ -234,7 +248,6 @@
     font-size: 0.75em;
     font-weight: 700;
     text-align: center;
-    height: 100%;
     height: var(--rdp-cell-size);
     padding: 0;
     text-transform: uppercase;
@@ -254,6 +267,12 @@
     height: var(--rdp-cell-size);
     padding: 0;
     text-align: center;
+
+    @media screen and (max-width: 660px) {
+        width: 42px;
+        height: 42px;
+        font-size: 14px;
+    }
 }
 
 .rdp-weeknumber {
@@ -273,6 +292,13 @@
     margin: 0;
     border: 2px solid transparent;
     border-radius: 100%;
+
+    @media screen and (max-width: 660px) {
+        width: 42px;
+        height: 42px;
+        font-size: 14px;
+        max-width: 100%;
+    }
 }
 
 .rdp-day_today:not(.rdp-day_outside) {

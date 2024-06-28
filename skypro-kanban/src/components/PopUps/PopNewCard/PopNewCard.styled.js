@@ -118,6 +118,15 @@ export const FormNewBlock = styled.div`
 export const FormNewBlockCalc = styled.div`
     width: 182px;
     font-family: inherit;
+    margin-bottom: 20px;
+    @media screen and (max-width: 495px) {
+        width: 100%;
+    }
+
+    @media screen and (max-width: 660px) {
+        max-width: 340px;
+        width: 100%;
+    }
 `
 
 export const FormLabel = styled.label`
@@ -125,6 +134,12 @@ export const FormLabel = styled.label`
     font-size: 14px;
     font-weight: 600;
     line-height: 1;
+    margin-bottom: 14px;
+
+    @media screen and (max-width: 660px) {
+        padding: 0;
+        margin-bottom: 0;
+    }
 `;
 
 export const FormInput = styled.input`

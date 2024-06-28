@@ -1,7 +1,7 @@
 import * as S from "./PopNewCard.styled.js";
-import { useRef, useState } from "react";
-import { routesApp } from "../../../lib/RoutesApp.js";
-import { useTask } from "../../../hooks/useTask.js";
+import {useRef, useState} from "react";
+import {routesApp} from "../../../lib/RoutesApp.js";
+import {useTask} from "../../../hooks/useTask.js";
 import Calendar from "../../Calendar/Calendar.jsx";
 
 const PopNewCard = () => {
@@ -10,7 +10,7 @@ const PopNewCard = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [newCardTopic, setNewCardTopic] = useState("Web Design");
     //const { userData } = useUser();
-    const { onAddTask } = useTask();
+    const {onAddTask} = useTask();
 
     const handleAddCard = async (event) => {
         await onAddTask({
@@ -38,7 +38,7 @@ const PopNewCard = () => {
                                 <S.FormNewBlock>
                                     <S.FormLabel htmlFor="formTitle">Название задачи</S.FormLabel>
                                     <S.FormInput type="text" name="name" id="formTitle"
-                                                 placeholder="Введите название задачи..." autoFocus ref={newCardTitle} />
+                                                 placeholder="Введите название задачи..." autoFocus ref={newCardTitle}/>
                                 </S.FormNewBlock>
                                 <S.FormNewBlock>
                                     <S.FormLabel htmlFor="textArea">Описание задачи</S.FormLabel>
@@ -60,15 +60,15 @@ const PopNewCard = () => {
                             <S.PopCategoriesTitle>Категория</S.PopCategoriesTitle>
                             <S.PopCategoriesThemes>
                                 <S.PopCategoriesOrange onClick={() => handleCategory("Web Design")}
-                                                       style={{ opacity: newCardTopic === "Web Design" ? 1 : 0.4 }}>
+                                                       style={{opacity: newCardTopic === "Web Design" ? 1 : 0.4}}>
                                     <S.PopCategoriesOrangeText>Web Design</S.PopCategoriesOrangeText>
                                 </S.PopCategoriesOrange>
                                 <S.PopCategoriesGreen onClick={() => handleCategory("Research")}
-                                                      style={{ opacity: newCardTopic === "Research" ? 1 : 0.4 }}>
+                                                      style={{opacity: newCardTopic === "Research" ? 1 : 0.4}}>
                                     <S.PopCategoriesGreenText>Research</S.PopCategoriesGreenText>
                                 </S.PopCategoriesGreen>
                                 <S.PopCategoriesPurple onClick={() => handleCategory("Copywriting")}
-                                                       style={{ opacity: newCardTopic === "Copywriting" ? 1 : 0.4 }}>
+                                                       style={{opacity: newCardTopic === "Copywriting" ? 1 : 0.4}}>
                                     <S.PopCategoriesPurpleText>Copywriting</S.PopCategoriesPurpleText>
                                 </S.PopCategoriesPurple>
                             </S.PopCategoriesThemes>

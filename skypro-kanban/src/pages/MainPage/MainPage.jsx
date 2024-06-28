@@ -29,9 +29,6 @@ const MainPage = ({fetchTodos}) => {
         <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
             <GlobalStyle/>
             <Wrapper>
-                {/*<PopExit/>*/}
-                {/*<PopNewCard/>*/}
-                {/*<PopBrowse/>*/}
 
                 <Outlet/>
                 <Header toggleTheme={toggleTheme}/>

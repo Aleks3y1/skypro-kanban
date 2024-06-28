@@ -39,6 +39,10 @@ export const CategoriesTheme = styled.div `
     opacity: 1;
     background-color: ${({$color}) => topicStyles[$color]?.backgroundColor || 'grey'};
     color: ${({$color}) => topicStyles[$color]?.color || 'black'};
+
+    @media screen and (max-width: 495px) {
+            display: none;
+    }
 `;
 
 export const CategoriesThemeTtl = styled.p `
@@ -142,11 +146,25 @@ export const PopBrowseButton = styled.button`
     border: none;
     outline: none;
     color: #FFFFFF;
+    height: 30px;
+    margin-bottom: 10px;
+    padding: 0 14px;
+
+    &:hover {
+        background-color: #33399b;
+        color: #FFFFFF;
+        transition: all 0.25s linear;
+    }
+
+    @media screen and (max-width: 495px) {
+        width: 100%;
+        height: 40px;
+    }
 `;
 
 export const PopBrowseLink = styled(Link)`
-    color: ${props =>
-            props.theme.body === "#EAEEF6" ? "#565EEF" : "#FFFFFF"};
+    color: inherit;
+    
     &:hover {
         color: #FFFFFF;
     }
@@ -175,4 +193,96 @@ export const PopBrowseBtnEdit = styled.button`
         border: 0.7px solid #33399b;
         transition: all 0.25s linear;
     }
+
+    @media screen and (max-width: 495px) {
+        width: 100%;
+        height: 40px;
+        margin-right: 0;
+    }
+`;
+
+export const PopBrowseBtnSolid = styled.button`
+    border-radius: 4px;
+    background: #565EEF;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    //height: 40px;
+    height: 30px;
+    margin-bottom: 10px;
+    padding: 0 14px;
+    margin-right: 8px;
+
+    @media screen and (max-width: 495px) {
+        width: 100%;
+        height: 40px;
+        margin-right: 0;
+    }
+
+    &:hover {
+        background-color: #33399b;
+        color: #FFFFFF;
+        transition: all 0.25s linear;
+    }   
+`;
+
+export const ButtonGroup = styled.div`
+    
+    @media screen and (max-width: 495px) {
+        width: 100%;
+    }
+`;
+
+export const PopButtonDelete = styled.button`
+    border-radius: 4px;
+    border: 0.7px solid var(--palette-navy-60, #565EEF);
+    outline: none;
+    background: transparent;
+    margin-bottom: 10px;
+    padding: 0 14px;
+    height: 30px;
+    margin-right: 8px;
+    color: ${props =>
+            props.theme.body === "#EAEEF6" ? "#565EEF" : "#FFFFFF"};
+
+    &:hover {
+        background-color: #33399b;
+        color: #FFFFFF;
+        border: 0.7px solid #33399b;
+        transition: all 0.25s linear;
+    }
+
+    @media screen and (max-width: 495px) {
+        width: 100%;
+        height: 40px;
+        margin-right: 0;
+    }
+`
+
+export const PopBrowseEditHide = styled.div`
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+`;
+
+export const PopThemeMobileBlock = styled.div `
+    display: none;
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 495px) {
+        display: block;
+        margin-bottom: 20px;
+    }
+`;
+
+export const CategoriesThemeMobile = styled.div `
+    display: inline-block;
+    width: auto;
+    height: 30px;
+    padding: 8px 20px;
+    border-radius: 24px;
+    margin-right: 7px;
+    opacity: 1;
+    background-color: ${({$color}) => topicStyles[$color]?.backgroundColor || 'grey'};
+    color: ${({$color}) => topicStyles[$color]?.color || 'black'};
 `;

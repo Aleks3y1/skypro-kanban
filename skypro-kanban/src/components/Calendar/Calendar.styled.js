@@ -8,4 +8,8 @@ export const CalendarSub = styled.p`
     letter-spacing: -0.2px;
     padding: 0 7px;
     margin-top: 5px;
+
+    @media screen and (max-width: 660px) {
+            font-size: 14px;
+    }
 `;
