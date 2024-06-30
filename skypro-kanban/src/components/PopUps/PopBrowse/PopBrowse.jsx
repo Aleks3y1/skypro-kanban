@@ -5,7 +5,6 @@ import {CardStyle} from "../../../lib/CardStyle.js";
 import {useUser} from "../../../hooks/useUser.js";
 import * as S from "../PopNewCard/PopNewCard.styled.js";
 import {useTask} from "../../../hooks/useTask.js";
-import {getTodos} from "../../../api.js";
 import {routesApp} from "../../../lib/RoutesApp.js";
 import {FormTextareaPop} from "./TextAreaStyle.js";
 import Calendar from "../../Calendar/Calendar.jsx";
@@ -14,7 +13,7 @@ import * as A from "./PopBrowse.styled.js";
 const PopBrowse = () => {
     const {id} = useParams();
     const {userData} = useUser();
-    const {editTask, removeTask} = useTask();
+    const {tasks, editTask, removeTask} = useTask();
     const [task, setTask] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [modifyCard, setModifyCard] = useState("none");
@@ -32,30 +31,34 @@ const PopBrowse = () => {
         "Copywriting": "_purple",
     };
 
-
     useEffect(() => {
         const fetchCard = async () => {
+            if (!userData?.token || !id) return;
+
             try {
-                if (userData?.token) {
-                    const todos = await getTodos(userData.token);
-                    const foundCard = todos.tasks.find((task) => task._id === id);
-                    if (foundCard) {
-                        setTask(foundCard);
-                        setSelectedDate(new Date(foundCard.date));
-                        setCurrentStatus(foundCard.status);
-                        setDescription(foundCard.description);
-                        setColor(colorsArray[foundCard.topic]);
+                const result = tasks.filter(task => task._id === id);
+                if (result.length > 0) {
+                    const foundCard = result[0];
+                    setTask(foundCard);
+                    const validDate = new Date(foundCard.date);
+                    if (!isNaN(validDate.getTime())) {
+                        setSelectedDate(validDate);
+                    } else {
+                        setSelectedDate(new Date());
                     }
+                    setCurrentStatus(foundCard.status);
+                    setDescription(foundCard.description);
+                    setColor(colorsArray[foundCard.topic]);
                 }
             } catch (error) {
-                console.error(error);
+                console.error("Ошибка при загрузке задачи: ", error);
             } finally {
                 setIsLoading(false);
             }
         };
 
         fetchCard();
-    }, [id, userData?.token]);
+    }, [userData, id, tasks]);
 
     const handleModifyCard = () => {
         setModifyCard("flex");

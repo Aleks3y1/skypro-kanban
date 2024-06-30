@@ -1,4 +1,3 @@
-import "../../App.css";
 import {useEffect, useState} from "react";
 import {ThemeProvider} from "styled-components";
 import {Wrapper} from "./MainPage.styled.js";
@@ -16,7 +15,7 @@ const MainPage = ({fetchTodos}) => {
     const {userData} = useUser();
 
     useEffect(() => {
-        if (userData) {
+        if (!userData) {
             fetchTodos(setTasks);
         }
     }, [fetchTodos, userData]);

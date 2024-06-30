@@ -111,3 +111,20 @@ export async function deleteTask(token, id) {
 
     return await response.json();
 }
+
+export async function getTaskById(token, id) {
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    });
+
+    if (!response.ok) {
+        if (response.status === 404) {
+            console.error('Задача не найдена');
+        } else {
+            throw new Error(`Ошибка: ${response.status}`);
+        }
+    }
+    return await response.json();
+}
