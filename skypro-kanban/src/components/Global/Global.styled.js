@@ -31,19 +31,45 @@ export const GlobalStyle = createGlobalStyle`
         color: #000000;
     }
 
+    .pop-new-card__block, .pop-browse__block {
+        background: ${props =>
+                props.theme.body === "#EAEEF6" ? lightTheme.popExitBGC : darkTheme.popExitBGC};
+    }
+
+    .pop-new-card__ttl, .subttl, .calendar__p span, .pop-browse__ttl {
+        color: ${props =>
+                props.theme.body === "#EAEEF6" ? lightTheme.popExitTtl : darkTheme.popExitTtl};
+    }
+
     .pop-exit__block {
         background: ${props =>
                 props.theme.body === "#EAEEF6" ? lightTheme.popExitBGC : darkTheme.popExitBGC};
     }
-    
+
     .pop-exit__ttl {
         color: ${props =>
                 props.theme.body === "#EAEEF6" ? lightTheme.popExitTtl : darkTheme.popExitTtl};
     }
 
+    .form-browse__area {
+        background: ${props =>
+                props.theme.body === "#EAEEF6" ? "#EAEEF6" : "#151419"};
+    }
+
+    ._btn-bor a {
+        color: ${props =>
+                props.theme.body === "#EAEEF6" ? "#565EEF" : "#FFFFFF"};
+    }
+
+    ._btn-bor {
+        border: 0.7px solid var(--palette-navy-60, ${props =>
+                props.theme.body === "#EAEEF6" ? "#565EEF" : "#FFFFFF"});
+    }
+
     .pop-exit__block button:last-child {
         color: ${props =>
                 props.theme.body === "#EAEEF6" ? lightTheme.popExitButtonText : darkTheme.popExitButtonText};
+
         &:hover {
             color: ${props =>
                     props.theme.body === "#EAEEF6" ? darkTheme.popExitButtonText : darkTheme.popExitButtonText};
@@ -56,43 +82,9 @@ export const GlobalStyle = createGlobalStyle`
                 props.theme.body === "#EAEEF6" ? lightTheme.checkBG : darkTheme.checkBG};
     }
 
-    ._light {
-        display: ${props => props.theme.body === "#EAEEF6" ? 'block' : 'none'};
-        transition: all 0.25s linear;
-    }
-
-    ._dark {
-        display: ${props => props.theme.body === "#EAEEF6" ? 'none' : 'block'};
-        transition: all 0.25s linear;
-    }
-
-    .header__pop-user-set {
-        background-color: ${props =>
-                props.theme.body === "#EAEEF6" ? lightTheme.popUserSetBGC : darkTheme.popUserSetBGC};
-        box-shadow: 0px 10px 39px 0px rgba(148, 166, 190, 0.4);
-        transition: all 0.25s linear;
-    }
-
     .pop-user-set__name, .pop-user-set__theme p {
         color: ${props =>
                 props.theme.body === "#EAEEF6" ? lightTheme.popUserSetThemeP : darkTheme.popUserSetThemeP};
-    }
-
-    .pop-user-set button a {
-        color: ${props =>
-                props.theme.body === "#EAEEF6" ? lightTheme.popUserButtonText : darkTheme.popUserButtonText};
-    }
-
-    .pop-user-set button {
-        border: 1px solid ${props =>
-                props.theme.body === "#EAEEF6" ? lightTheme.popUserButton : darkTheme.popUserButton};
-        color: ${props =>
-                props.theme.body === "#EAEEF6" ? lightTheme.popUserButtonText : darkTheme.popUserButtonText};
-        transition: all 0.25s linear;
-
-        &:hover {
-            border: none;
-        }
     }
 `;
 

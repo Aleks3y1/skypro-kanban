@@ -1,43 +1,37 @@
-import "../../App.css";
 import {useEffect, useState} from "react";
 import {ThemeProvider} from "styled-components";
 import {Wrapper} from "./MainPage.styled.js";
 import {GlobalStyle} from "../../components/Global/Global.styled.js";
-import PopExit from "../../components/PopUps/PopExit/PopExit.jsx";
-import PopNewCard from "../../components/PopUps/PopNewCard/PopNewCard.jsx";
-import PopBrowse from "../../components/PopUps/PopBrowse/PopBrowse.jsx";
 import Header from "../../components/Header/Header.jsx";
 import Main from "../../components/Main/Main.jsx";
 import {darkTheme, lightTheme} from "../../theme.js";
-import {cardList} from "../../data.js";
 import {Outlet} from "react-router-dom";
-import {getTodos} from "../../api.js";
+import {useUser} from "../../hooks/useUser.js";
+import {useTask} from "../../hooks/useTask.js";
 
-const MainPage = () => {
-    const [cards, setCards] = useState(cardList);
+const MainPage = ({fetchTodos}) => {
+    const {setTasks} = useTask();
     const [theme, setTheme] = useState("light");
+    const {userData} = useUser();
+
+    useEffect(() => {
+        if (!userData) {
+            fetchTodos(setTasks);
+        }
+    }, [fetchTodos, userData]);
 
     const toggleTheme = () => {
         setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
     }
 
-    useEffect(() => {
-        getTodos().then((todos) => {
-            setCards(todos);
-        });
-    }, []);
-
     return (
         <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
             <GlobalStyle/>
             <Wrapper>
-                {/*<PopExit/>*/}
-                <PopNewCard/>
-                {/*<PopBrowse/>*/}
 
                 <Outlet/>
-                <Header setCards={setCards} cards={cards} toggleTheme={toggleTheme}/>
-                <Main cardList={cards}/>
+                <Header toggleTheme={toggleTheme}/>
+                <Main/>
             </Wrapper>
         </ThemeProvider>
     );

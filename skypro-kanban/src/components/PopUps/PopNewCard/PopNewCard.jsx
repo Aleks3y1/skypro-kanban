@@ -1,45 +1,83 @@
-import Calendar from "../../Calendar/Calendar";
+import * as S from "./PopNewCard.styled.js";
+import {useRef, useState} from "react";
+import {routesApp} from "../../../lib/RoutesApp.js";
+import {useTask} from "../../../hooks/useTask.js";
+import Calendar from "../../Calendar/Calendar.jsx";
 
 const PopNewCard = () => {
-    return( 
-        <div className="pop-new-card" id="popNewCard">
-				<div className="pop-new-card__container">
-					<div className="pop-new-card__block">
-						<div className="pop-new-card__content">
-							<h3 className="pop-new-card__ttl">Создание задачи</h3>
-							<a href="#" className="pop-new-card__close">&#10006;</a>
-							<div className="pop-new-card__wrap">
-								<form className="pop-new-card__form form-new" id="formNewCard" action="#">
-									<div className="form-new__block">
-										<label htmlFor="formTitle" className="subttl">Название задачи</label>
-										<input className="form-new__input" type="text" name="name" id="formTitle" placeholder="Введите название задачи..." autoFocus />
-									</div>
-									<div className="form-new__block">
-										<label htmlFor="textArea" className="subttl">Описание задачи</label>
-										<textarea className="form-new__area" name="text" id="textArea"  placeholder="Введите описание задачи..."></textarea>
-									</div>
-								</form>
-								<Calendar />
-							</div>
-							<div className="pop-new-card__categories categories">
-								<p className="categories__p subttl">Категория</p>
-								<div className="categories__themes">
-									<div className="categories__theme _orange _active-category">
-										<p className="_orange">Web Design</p>
-									</div>
-									<div className="categories__theme _green">
-										<p className="_green">Research</p>
-									</div>
-									<div className="categories__theme _purple">
-										<p className="_purple">Copywriting</p>
-									</div>
-								</div>
-							</div>
-							<button className="form-new__create _hover01" id="btnCreate">Создать задачу</button>
-						</div>
-					</div>
-				</div>
-			</div>
+    const newCardTitle = useRef(null);
+    const newCardDescription = useRef(null);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [newCardTopic, setNewCardTopic] = useState("Web Design");
+    //const { userData } = useUser();
+    const {onAddTask} = useTask();
+
+    const handleAddCard = async (event) => {
+        await onAddTask({
+            event,
+            newCardTitle,
+            newCardTopic,
+            newCardDescription,
+            selectedDate,
+        });
+    }
+
+    const handleCategory = (color) => {
+        setNewCardTopic(color);
+    }
+
+    return (
+        <S.PopNewCardHUD>
+            <S.PopNewCardContainer>
+                <S.PopNewCardBlock>
+                    <S.PopNewCardContent>
+                        <S.PopNewCardH3>Создание задачи</S.PopNewCardH3>
+                        <S.PopNewCardLink to={routesApp.MAIN}>&#10006;</S.PopNewCardLink>
+                        <S.PopNewCardWrap>
+                            <S.PopNewCardForm>
+                                <S.FormNewBlock>
+                                    <S.FormLabel htmlFor="formTitle">Название задачи</S.FormLabel>
+                                    <S.FormInput type="text" name="name" id="formTitle"
+                                                 placeholder="Введите название задачи..." autoFocus ref={newCardTitle}/>
+                                </S.FormNewBlock>
+                                <S.FormNewBlock>
+                                    <S.FormLabel htmlFor="textArea">Описание задачи</S.FormLabel>
+                                    <S.FormTextarea name="text" id="textArea"
+                                                    placeholder="Введите описание задачи..."
+                                                    ref={newCardDescription}></S.FormTextarea>
+                                </S.FormNewBlock>
+                            </S.PopNewCardForm>
+                            <S.FormNewBlockCalc>
+                                <S.FormLabel>Даты</S.FormLabel>
+                                <Calendar
+                                    mode="single"
+                                    selected={selectedDate}
+                                    onSelect={setSelectedDate}
+                                />
+                            </S.FormNewBlockCalc>
+                        </S.PopNewCardWrap>
+                        <S.PopCategoriesBlock>
+                            <S.PopCategoriesTitle>Категория</S.PopCategoriesTitle>
+                            <S.PopCategoriesThemes>
+                                <S.PopCategoriesOrange onClick={() => handleCategory("Web Design")}
+                                                       style={{opacity: newCardTopic === "Web Design" ? 1 : 0.4}}>
+                                    <S.PopCategoriesOrangeText>Web Design</S.PopCategoriesOrangeText>
+                                </S.PopCategoriesOrange>
+                                <S.PopCategoriesGreen onClick={() => handleCategory("Research")}
+                                                      style={{opacity: newCardTopic === "Research" ? 1 : 0.4}}>
+                                    <S.PopCategoriesGreenText>Research</S.PopCategoriesGreenText>
+                                </S.PopCategoriesGreen>
+                                <S.PopCategoriesPurple onClick={() => handleCategory("Copywriting")}
+                                                       style={{opacity: newCardTopic === "Copywriting" ? 1 : 0.4}}>
+                                    <S.PopCategoriesPurpleText>Copywriting</S.PopCategoriesPurpleText>
+                                </S.PopCategoriesPurple>
+                            </S.PopCategoriesThemes>
+                        </S.PopCategoriesBlock>
+                        <S.FormNewButton onClick={handleAddCard}>Создать задачу</S.FormNewButton>
+                    </S.PopNewCardContent>
+                </S.PopNewCardBlock>
+            </S.PopNewCardContainer>
+        </S.PopNewCardHUD>
     );
 }
 

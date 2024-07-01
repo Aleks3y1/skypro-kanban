@@ -1,23 +1,24 @@
-import {PopExitGroup, PopExitNoButton, PopExitYesButton, PopNoLink} from "./PopExit.styled.js";
+import * as S from "./PopExit.styled.js";
 import {routesApp} from "../../../lib/RoutesApp.js";
 
 const PopExit = ({logout}) => {
     return (
-        <div className="pop-exit" id="popExit">
-            <div className="pop-exit__container">
-                <div className="pop-exit__block">
-                    <div className="pop-exit__ttl">
-                        <h2>Выйти из аккаунта?</h2>
-                    </div>
-                    <form className="pop-exit__form" id="formExit" action="#">
-                        <PopExitGroup>
-                            <PopExitYesButton onClick={logout}>Да, выйти </PopExitYesButton>
-                            <PopExitNoButton><PopNoLink to={routesApp.MAIN}>Нет, остаться</PopNoLink></PopExitNoButton>
-                        </PopExitGroup>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <S.PopExitForm>
+            <S.PopExitContainer>
+                <S.PopExitBlock>
+                    <S.PopExitTitleBlock>
+                        <S.PopExitTitle>Выйти из аккаунта?</S.PopExitTitle>
+                    </S.PopExitTitleBlock>
+                    <S.PopExitFormed action="#">
+                        <S.PopExitGroup>
+                            <S.PopExitYesButton onClick={logout}>Да, выйти </S.PopExitYesButton>
+                            <S.PopExitNoButton><S.PopNoLink to={routesApp.MAIN}>Нет,
+                                остаться</S.PopNoLink></S.PopExitNoButton>
+                        </S.PopExitGroup>
+                    </S.PopExitFormed>
+                </S.PopExitBlock>
+            </S.PopExitContainer>
+        </S.PopExitForm>
     );
 }
 

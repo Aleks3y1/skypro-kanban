@@ -1,18 +1,18 @@
-import {ColumnCards, ColumnContent, ColumnTitle, MainColumn} from "../Column/Column.styled.js";
+import * as S from "../Column/Column.styled.js";
 import LoaderCard from "../LoaderCard/LoaderCard.jsx";
 
 const Loader = ({ title, cardList }) => {
     return (
-        <MainColumn>
-            <ColumnTitle>
-                <ColumnContent>{title}</ColumnContent>
-            </ColumnTitle>
-            <ColumnCards>
+        <S.MainColumn>
+            <S.ColumnTitle>
+                <S.ColumnContent>{title}</S.ColumnContent>
+            </S.ColumnTitle>
+            <S.ColumnCards>
                 {cardList.map((card, index) => (
                     <LoaderCard key={index}/>
                 ))}
-            </ColumnCards>
-        </MainColumn>
+            </S.ColumnCards>
+        </S.MainColumn>
     );
 };
 

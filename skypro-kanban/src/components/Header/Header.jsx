@@ -1,13 +1,14 @@
 import {useState} from "react";
-import {Container, HeaderBlock, HeaderButton, HeaderNav, HeaderUser} from "./Header.styled.js";
 import * as S from "./Header.styled.js";
-import {postTodos} from "../../api.js";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {routesApp} from "../../lib/RoutesApp.js";
+import {useUser} from "../../hooks/useUser.js";
 
-    const Header = ({setCards, toggleTheme}) => {
+const Header = ({toggleTheme}) => {
     const [state, setState] = useState(false);
     const navigate = useNavigate();
+
+    const {userData} = useUser();
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -18,62 +19,49 @@ import {routesApp} from "../../lib/RoutesApp.js";
         setState((prevState) => !prevState);
     }
 
-    const onAddCard = async (event) => {
+    const addCardHUD = (event) => {
         event.preventDefault();
-        const newCard = {
-            title: "Задача 777",
-            topic: "Web Design",
-            status: "Без статуса",
-            description: "Подробное описание задачи",
-            date: new Date().toISOString(),
-        };
-        try {
-            const newTodos = await postTodos(newCard);
-            setCards(newTodos.tasks);
-            navigate(routesApp.MAIN)
-        } catch (error) {
-            console.error(error);
-        }
+        navigate(routesApp.NEW_CARD);
     }
 
     return (
         <S.Header>
-            <Container>
-                <HeaderBlock>
-                    <div className="header__logo _show _light">
-                        <a href="" target="_self">
-                            <img src="/logo.png" alt="logo"/>
-                        </a>
-                    </div>
-                    <div className="header__logo _dark">
-                        <a href="" target="_self">
-                            <img src="/logo_dark.png" alt="logo"/>
-                        </a>
-                    </div>
-                    <HeaderNav>
-                        <HeaderButton onClick={onAddCard}>
+            <S.Container>
+                <S.HeaderBlock>
+                    <S.HeaderLogoWrapLight>
+                        <Link to={routesApp.MAIN} target="_self">
+                            <S.HeaderLogo src="/logo.png" alt="logo"/>
+                        </Link>
+                    </S.HeaderLogoWrapLight>
+                    <S.HeaderLogoWrapDark>
+                        <Link to={routesApp.MAIN} target="_self">
+                            <S.HeaderLogo src="/logo_dark.png" alt="logo"/>
+                        </Link>
+                    </S.HeaderLogoWrapDark>
+                    <S.HeaderNav>
+                        <S.HeaderButton onClick={addCardHUD}>
                             Создать новую задачу
-                        </HeaderButton>
-                        <HeaderUser onClick={handleOpenUser}>
-                            Ivan Ivanov
-                        </HeaderUser>
+                        </S.HeaderButton>
+                        <S.HeaderUser onClick={handleOpenUser}>
+                            {userData.name}
+                        </S.HeaderUser>
                         {state && (
-                            <div className="header__pop-user-set pop-user-set">
-                                <p className="pop-user-set__name">Ivan Ivanov</p>
-                                <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-                                <div className="pop-user-set__theme">
-                                    <p>Темная тема</p>
-                                    <input type="checkbox" className="checkbox" name="checkbox"
+                            <S.HeaderPopUserSet>
+                                <S.PopUserName>{userData.name}</S.PopUserName>
+                                <S.PopUserEmail>{userData.login}</S.PopUserEmail>
+                                <S.PopUserTheme>
+                                    <S.PopUserThemeP>Темная тема</S.PopUserThemeP>
+                                    <S.PopUserThemeInput type="checkbox" name="checkbox"
                                            onChange={toggleTheme}/>
-                                </div>
-                                <button type="button" className="_hover03" onClick={handleLogout}>
+                                </S.PopUserTheme>
+                                <S.PopUpButton onClick={handleLogout}>
                                     Выйти
-                                </button>
-                            </div>
+                                </S.PopUpButton>
+                            </S.HeaderPopUserSet>
                         )}
-                    </HeaderNav>
-                </HeaderBlock>
-            </Container>
+                    </S.HeaderNav>
+                </S.HeaderBlock>
+            </S.Container>
         </S.Header>
     );
 }

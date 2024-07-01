@@ -1,6 +1,4 @@
-let token = null
-
-export async function getTodos() {
+export async function getTodos(token) {
     const response = await fetch(`https://wedev-api.sky.pro/api/kanban`, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -8,12 +6,12 @@ export async function getTodos() {
     });
 
     if (!response.ok) {
-        throw new Error(`Ошибвка: ${response.status}`);
+        throw new Error(`Ошибка: ${response.status}`);
     }
     return await response.json();
 }
 
-export async function postTodos(data) {
+export async function postTodos(token, data) {
     const response = await fetch(`https://wedev-api.sky.pro/api/kanban`, {
         method: 'POST',
         headers: {
@@ -30,42 +28,103 @@ export async function postTodos(data) {
 }
 
 export async function loginInApp({login, password}) {
-    const response = await fetch(`https://wedev-api.sky.pro/api/user/login`, {
-        method: 'POST',
-        body: JSON.stringify({
-            login,
-            password
-        }),
-    })
-    if (!response.ok) {
-        if (response.status === 400) {
-            throw new Error('Ошибка: Неверный логин или пароль!');
-        } else {
-            throw new Error(`Ошибка: ${response.status}`);
+    if (login.length > 0 && password.length > 0) {
+        const response = await fetch(`https://wedev-api.sky.pro/api/user/login`, {
+            method: 'POST',
+            body: JSON.stringify({
+                login,
+                password
+            }),
+        })
+        if (!response.ok) {
+            if (response.status === 400) {
+                alert('Ошибка: Неверный логин или пароль!');
+            } else {
+                alert(`Ошибка: ${response.status}`);
+            }
         }
+
+        return await response.json();
+    } else {
+        alert('Заполните все поля!');
     }
-    const data = await response.json();
-    token = data.user.token;
-    return data;
 }
 
 export async function registerInApp({login, name, password}) {
     if (login.length > 0 && name.length > 0 && password.length > 0) {
-        return fetch(`https://wedev-api.sky.pro/api/user`, {
+        const response = await fetch(`https://wedev-api.sky.pro/api/user`, {
             method: 'POST',
             body: JSON.stringify({
                 login,
                 name,
                 password
             }),
-        }).then((response) => {
+        });
+
+        if (!response.ok) {
             if (response.status === 400) {
-                throw new Error('Ошибка: пользователь уже существует!');
+                alert('Ошибка: пользователь уже существует!');
             } else {
-                return response.json();
+                alert(`Ошибка: ${response.status}`);
             }
-        })
+        }
+
+        return await response.json();
     } else {
-        console.log('Заполните все поля.');
+        throw new Error('Заполните все поля.');
     }
+}
+
+export async function changeTask({title, topic, status, description, date, _id, token}) {
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${_id}`, {
+        method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            title,
+            topic,
+            status,
+            description,
+            date
+        }),
+    });
+
+    if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status}`);
+    }
+
+    return await response.json();
+}
+
+export async function deleteTask(token, id) {
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status}`);
+    }
+
+    return await response.json();
+}
+
+export async function getTaskById(token, id) {
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    });
+
+    if (!response.ok) {
+        if (response.status === 404) {
+            console.error('Задача не найдена');
+        } else {
+            throw new Error(`Ошибка: ${response.status}`);
+        }
+    }
+    return await response.json();
 }

@@ -4,16 +4,17 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute.jsx";
 import MainPage from "../../pages/MainPage/MainPage.jsx";
 import Exit from "../../pages/Exit/Exit.jsx";
 import CardPage from "../../pages/CardPage/CardPage.jsx";
-import PopNewCard from "../../pages/PopNewCard/PopNewCard.jsx";
+import NewCard from "../../pages/NewCard/NewCard.jsx";
 import Login from "../../pages/Login/Login.jsx";
 import Register from "../../pages/Register/Register.jsx";
 import NotFound from "../../pages/NotFound/NotFound.jsx";
 import {routesApp} from "../../lib/RoutesApp.js";
-import {loginInApp, registerInApp} from "../../api.js";
+import {getTodos, loginInApp, registerInApp} from "../../api.js";
+import {useUser} from "../../hooks/useUser.js";
 
 const RoutesApp = () => {
-    const [isAuth, setIsAuth] = useState(false);
     const navigate = useNavigate();
+    const {userData, setUser, logout} = useUser();
 
     const emailUser = useRef(null);
     const passwordUser = useRef(null);
@@ -22,49 +23,84 @@ const RoutesApp = () => {
     const nameRegister = useRef(null);
     const passRegister = useRef(null);
 
+    const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [hasTriedSubmit, setHasTriedSubmit] = useState(false);
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!emailUser.current.value) {
+            newErrors.email = 'Эл. почта не может быть пустой';
+        } else if (!/\S+@\S+\.\S+/.test(emailUser.current.value)) {
+            newErrors.email = 'Некорректный адрес электронной почты';
+        }
+        if (!passwordUser.current.value || passwordUser.current.value.length < 6) {
+            newErrors.password = 'Пароль должен быть не менее 6 символов';
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const login = async (event) => {
         event.preventDefault();
-        try {
-            const response = await loginInApp({
-                login: emailUser.current.value,
-                password: passwordUser.current.value
-            });
-            setIsAuth(true);
-            navigate(routesApp.MAIN);
-        } catch (error) {
-            console.error(error);
+        setHasTriedSubmit(true);
+        if (validateForm()) {
+            setIsSubmitting(true);
+            try {
+                const response = await loginInApp({
+                    login: emailUser.current.value,
+                    password: passwordUser.current.value
+                });
+                if (!response.error) {
+                    setUser(response.user);
+                    navigate(routesApp.MAIN);
+                }
+            } catch (error) {
+                console.error(error);
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    form: 'Введенные вами данные не распознаны. Проверьте свой логин и пароль и повторите попытку входа.'
+                }));
+                setIsSubmitting(false);
+            }
         }
-    }
+    };
 
     const register = async (event) => {
         event.preventDefault();
         try {
-            const response = await registerInApp({
+            await registerInApp({
                 login: loginRegister.current.value,
                 name: nameRegister.current.value,
                 password: passRegister.current.value
             });
-            console.log(response);
             navigate(routesApp.LOGIN);
         } catch (error) {
-            console.error(error);
+            console.error(error.message);
+            alert(error.message);
         }
-    }
+    };
 
-    const logout = (event) => {
-        event.preventDefault();
-        setIsAuth(false);
-        navigate(routesApp.LOGIN);
-    }
+    const fetchTodos = async (setCards) => {
+        if (userData && userData.token) {
+            try {
+                const todos = await getTodos(userData.token);
+                setCards(todos);
+            } catch (error) {
+                alert(error.message);
+            }
+        } else {
+            console.error('Токен не найден');
+        }
+    };
 
     return (
         <Routes>
-            <Route element={<PrivateRoute isAuth={isAuth}/>}>
-                <Route path={routesApp.MAIN} element={<MainPage/>}>
+            <Route element={<PrivateRoute isAuth={!!userData}/>}>
+                <Route path={routesApp.MAIN} element={<MainPage fetchTodos={fetchTodos}/>}>
                     <Route path={routesApp.EXIT} element={<Exit logout={logout}/>}/>
                     <Route path={routesApp.CARD} element={<CardPage/>}/>
-                    <Route path={routesApp.NEW_CARD} element={<PopNewCard/>}/>
+                    <Route path={routesApp.NEW_CARD} element={<NewCard/>}/>
                 </Route>
             </Route>
             <Route path={routesApp.LOGIN}
@@ -74,7 +110,7 @@ const RoutesApp = () => {
                                       passRegister={passRegister}/>}/>
             <Route path={routesApp.NOT_FOUND} element={<NotFound/>}/>
         </Routes>
-    )
-        ;
-}
+    );
+};
+
 export default RoutesApp;

@@ -1,47 +1,36 @@
-import {
-  CardButtonDiv,
-  CardButtonStyles,
-  CardContentStyles,
-  CardDate,
-  CardDateP,
-  CardGroupStyles,
-  CardItemStyles,
-  CardsCardStyles,
-  CardStyles,
-  CardTitleStyles,
-  TopicStyles,
-} from "./Card.styled.js";
+import * as S from "./Card.styled.js";
 import { Link } from "react-router-dom";
+import {format} from "date-fns";
 
 const Card = ({ topic, title, date, _id }) => {
   const colorsArr = {
     "Web Design": "_orange",
-    Research: "_green",
-    Copywriting: "_purple",
+    "Research": "_green",
+    "Copywriting": "_purple",
   };
 
   const color = colorsArr[topic] || "";
 
+  const formattedDate = date ? format(new Date(date), 'dd.MM.yyyy') : 'Invalid Date';
+
   return (
-    <CardItemStyles>
-      <CardsCardStyles>
-        <CardGroupStyles>
-          <CardStyles $color={color}>
-            <TopicStyles $color={color}>{topic}</TopicStyles>
-          </CardStyles>
+    <S.CardItemStyles>
+      <S.CardsCardStyles>
+        <S.CardGroupStyles>
+          <S.CardStyles $color={color}>
+            <S.TopicStyles $color={color}>{topic}</S.TopicStyles>
+          </S.CardStyles>
           <Link to={`/card/${_id}`}>
-            <CardButtonStyles>
-              <CardButtonDiv></CardButtonDiv>
-              <CardButtonDiv></CardButtonDiv>
-              <CardButtonDiv></CardButtonDiv>
-            </CardButtonStyles>
+            <S.CardButtonStyles>
+              <S.CardButtonDiv></S.CardButtonDiv>
+              <S.CardButtonDiv></S.CardButtonDiv>
+              <S.CardButtonDiv></S.CardButtonDiv>
+            </S.CardButtonStyles>
           </Link>
-        </CardGroupStyles>
-        <CardContentStyles>
-          <a href="" target="_blank">
-            <CardTitleStyles>{title}</CardTitleStyles>
-          </a>
-          <CardDate>
+        </S.CardGroupStyles>
+        <S.CardContentStyles>
+            <S.CardTitleStyles>{title}</S.CardTitleStyles>
+          <S.CardDate>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="13"
@@ -70,11 +59,11 @@ const Card = ({ topic, title, date, _id }) => {
                 </clipPath>
               </defs>
             </svg>
-            <CardDateP>{date}</CardDateP>
-          </CardDate>
-        </CardContentStyles>
-      </CardsCardStyles>
-    </CardItemStyles>
+            <S.CardDateP>{formattedDate}</S.CardDateP>
+          </S.CardDate>
+        </S.CardContentStyles>
+      </S.CardsCardStyles>
+    </S.CardItemStyles>
   );
 };
 
